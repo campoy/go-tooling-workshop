@@ -246,6 +246,23 @@ use struct field tags as a way to provide information on how a struct should
 be encoded. For instance given the code in [tags.go](tags.go):
 
 [embedmd]:# (tags.go /package main/ $)
+```go
+package main
+
+import (
+	"encoding/json"
+	"os"
+)
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	json.NewEncoder(os.Stdout).Encode(Person{"Gopher", 6})
+}
+```
 
 You could specify that the `json` encoding for the field `Name` should use lower
 case names by modifying the definition of `Person` to be:
