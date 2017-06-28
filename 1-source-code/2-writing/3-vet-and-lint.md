@@ -184,6 +184,12 @@ We're lucky, `errcheck` checks exactly that!
 
 explain how to install and use errcheck, also how to integrate it with VSCode
 
+## Continuous Integration and code checkers
+
+It is a good pratice to add checks to make sure that any code causing `go vet`
+or `golint` doesn't build, specially if you're using tools like Travis CI,
+Jenkins, and others.
+
 ## Congratulations
 
 You are now able to produce code with less mistakes, because you're able to detect

@@ -10,6 +10,8 @@ is definitely not the most well-known one.
 
 `go list` allows you to obtain information about your workspace and the packages stored in it.
 
+_NOTE_: in order to list all the packages in the standard library you can simply run `go list std`.
+
 For instance, given that you've ran `go get github.com/golang/example/hello` in the chapter before,
 you should be able to list all the packages under `github.com/golang/example` by running:
 
