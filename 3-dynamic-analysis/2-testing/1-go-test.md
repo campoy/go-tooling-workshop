@@ -256,3 +256,6 @@ on any package you wish. That's pretty awesome!
 
 Next we're going to learn how to figure out what parts of your code you should
 be testing with [code coverage](2-code-coverage.md).
+
+
+TODO: testing of http endpoints?
