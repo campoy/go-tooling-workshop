@@ -1,1 +1,0 @@
-FROM alpine, scratch, golang, debian:jessie-slim
