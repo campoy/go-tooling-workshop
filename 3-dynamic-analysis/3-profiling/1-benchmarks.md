@@ -7,10 +7,8 @@ Correctness is necessary, but not sufficient. We also need our programs to
 be fast. And how do we measure that?
 
 Let's work again with the web server program we used before
-for debugging.
-
-You can use the code you fixed before, or directly use this
-working version in the [webserver](webserver) directory.
+for debugging. There is a slightly modified version of the code in the
+[webserver](webserver) directory.
 
 [embedmd]:# (webserver/main.go /package main/ $)
 ```go
@@ -29,13 +27,20 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	re := regexp.MustCompile("^([[:alpha:]]+)@golang.org$")
-	match := re.FindStringSubmatch(r.URL.Path[1:])
-	if len(match) >= 2 {
-		fmt.Fprintf(w, "hello, %s", match[1])
+	if name, ok := isGopher(r.URL.Path[1:]); ok {
+		fmt.Fprintf(w, "hello, %s", name)
 		return
 	}
 	fmt.Fprintln(w, "hello, stranger")
+}
+
+func isGopher(email string) (string, bool) {
+	re := regexp.MustCompile("^([[:alpha:]]+)@golang.org$")
+	match := re.FindStringSubmatch(email)
+	if len(match) == 2 {
+		return match[1], true
+	}
+	return "", false
 }
 ```
 
@@ -199,6 +204,13 @@ func BenchmarkFields_Escape(b *testing.B) {
 ```
 
 ### Exercise: benchmarks
+
+Write a benchmark for the `isGopher` function in [webserver/main.go](webserver/main.go).
+
+Do not change the implementation of `isGopher` just yet.
+How fast is it? How many allocations per operation does it require?
+
+### Exercise: benchmarks and alternative implementations
 
 Write a benchmark for the [sum](../2-testing/sum) package we tested before.
 Try writing an alternative implementation of `Sum` that uses iteration rather

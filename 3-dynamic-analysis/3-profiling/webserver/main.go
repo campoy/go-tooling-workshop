@@ -27,11 +27,18 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	re := regexp.MustCompile("^([[:alpha:]]+)@golang.org$")
-	match := re.FindStringSubmatch(r.URL.Path[1:])
-	if len(match) >= 2 {
-		fmt.Fprintf(w, "hello, %s", match[1])
+	if name, ok := isGopher(r.URL.Path[1:]); ok {
+		fmt.Fprintf(w, "hello, %s", name)
 		return
 	}
 	fmt.Fprintln(w, "hello, stranger")
+}
+
+func isGopher(email string) (string, bool) {
+	re := regexp.MustCompile("^([[:alpha:]]+)@golang.org$")
+	match := re.FindStringSubmatch(email)
+	if len(match) == 2 {
+		return match[1], true
+	}
+	return "", false
 }
