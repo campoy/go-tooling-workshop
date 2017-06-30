@@ -26,6 +26,10 @@ Type 'help' for list of commands.
 (dlv)
 ```
 
+This command will compile the current package and generate a binary that can be
+debugged correctly. It is out of the scope of this workshop to explain how this
+really works.
+
 If you try to visit the http://localhost:8080 you will see that the server is not running.
 This is normal, since our binary was loaded but not executed yet! Let's make it run by
 typing `continue`.

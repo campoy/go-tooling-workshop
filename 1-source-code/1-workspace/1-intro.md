@@ -1,6 +1,6 @@
 # Workspace Introduction
 
-Go has a particual way of structuring your workspace. This might be weird at first,
+Go has a particular way of structuring your workspace. This might be weird at first,
 but I personally adopted this style for all my projects now (no matter the language)
 I couldn't be happier.
 
@@ -58,7 +58,7 @@ The `go` tool is able to fetch code from most repositories, as long as they supp
 
 For example, git is used for Github, hg is used for Bitbucket, etc.
 
-Note that `""github.com/golang/example/stringutil"` is not technically pointing to any code on GitHub,
+Note that `"github.com/golang/example/stringutil"` is not technically pointing to any code on GitHub,
 as the actual URL to the code would also include `https` and the branch (probably `master`).
 The `go` tool is able to figure these differences out, and it will store the code under `$GOPATH/src/{import_path}`.
 

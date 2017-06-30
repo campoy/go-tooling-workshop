@@ -1,6 +1,6 @@
 # Managing third party dependencies
 
-The Go community decided that the best way to manage dependencies was by _vendoring_ them.
+The Go community found out that the best way to manage dependencies was by _vendoring_ them.
 
 To vendor a dependency means that the code of that package we depend on is copied into our
 workspace and stored as part of our project.
