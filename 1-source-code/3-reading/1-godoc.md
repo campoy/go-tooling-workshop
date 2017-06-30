@@ -114,7 +114,7 @@ many packages import every repository.
 
 Go check it out and try to find some useful packages to your work!
 
-## Congraulations
+## Congratulations
 
 You now know not only how to use `godoc` and `go doc` but also the
 differences between those two. You can go around and ask other gophers
