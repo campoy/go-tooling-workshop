@@ -9,6 +9,9 @@ After going through the whole content, you will know about what tools can
 help you better write Go code, how to build artifacts from that code, and
 how to understand the performance of your code once it's running.
 
+You should be relatively familiar with Go, even though we won't be writing
+much code. Maybe it's time to check out the [Go Tour](https://tour.golang.org).
+
 For a shorter and sweeter version of this workshop, you can watch the video
 that I made for a conference, and inspired me to create this workshop.
 
@@ -19,12 +22,17 @@ that I made for a conference, and inspired me to create this workshop.
     </a>
 </div>
 
-## Setting up your workspace
+## Software requirements
 
 To go through this you will need the following:
 
 1. You have installed the [Go Programming Language](https://golang.org).
-1. You are somewhat familiar with the basics of Go. (The [Go Tour](https://tour.golang.org) is a pretty good place to start)
+1. We will be using [Visual Studio Code](https://code.visualstudio.com/) it's free and open source.
+1. At some point we'll also use [delve](https://github.com/derekparker/delve/tree/master/Documentation/installation), so install it now if you think you won't have good WiFi later.
+1. Finally, we'll need [GraphViz](http://www.graphviz.org/Download..php).
+
+The rest of the software we'll use is quick to install through `go get`, so
+do not worry yet.
 
 ## Contents
 
