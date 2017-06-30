@@ -35,11 +35,31 @@ leaving the current context.
 
 ## guru
 
-TODO: integration with VSCode?
+[guru](https://godoc.org/golang.org/x/tools/cmd/guru) is an incredibly powerful
+tool, allowing you to navigate your code in many different ways.
 
-## srcgraph
+It allows you to find all the references to a given symbol (which VSCode exposes
+as a contextual menu), but also it allows you to find all the callers of a given
+function, or what possible values a given variable can have.
 
-TODO: extension and github navigation
+It is very powerful, but unfortunately VSCode does not integrate very well with it.
+If you want to have a look at what a good integration for this looks, check
+[vim-go](https://github.com/fatih/vim-go) out.
+
+You can see a little demo of what `vim-go` is able to do [here](http://quick.as/k7osbzp).
+
+## sourcegraph
+
+Navigating source code in your machine is important, but navigatint source code
+that is public on the internet can also be essential. Fortunately there's a cool
+startup that is working on this problem. And guess what, they use a lot of Go!
+
+I definitely recommend installing the [sourcegraph](https://about.sourcegraph.com/)
+[Chrome extension](https://chrome.google.com/webstore/detail/sourcegraph-for-github/dgjhfomjieaadpoljlnidmbgkdffpack?hl=en)
+and give it a try. Simply navigate GitHub repos and see how
+awesome it is to be able to `jump to definition` from your browser!
+
+_Note_: I do not make any money by promoting sourcegraph, I just think they're awesome!
 
 ## Congratulations
 
