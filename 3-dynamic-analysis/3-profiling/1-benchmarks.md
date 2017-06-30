@@ -23,6 +23,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", handler)
+	log.Printf("listening on localhost:8080")
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
 }
 
