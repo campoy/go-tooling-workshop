@@ -246,7 +246,7 @@ func ExmampleHelloWorld() {
 
 Write an example for `Sum` and see it running on your local `godoc` web
 server.
-Use an `Ouput` comment to make sure that if you run `go test` and the
+Use an `Output` comment to make sure that if you run `go test` and the
 output doesn't match the example will fail.
 
 ### Exercise (optional): testing an `http.Handler`

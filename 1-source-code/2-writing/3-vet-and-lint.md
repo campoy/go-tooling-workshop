@@ -184,7 +184,7 @@ We're lucky, `errcheck` checks exactly that!
 
 Let's see how to use [errcheck](https://github.com/kisielk/errcheck). This tool
 detects when an error is silently ignored. This means that for a function that
-returns at least one error we are ommitting to check the returned values.
+returns at least one error we are omitting to check the returned values.
 
 Given a `foo() error` function, we'll say that:
 
@@ -214,7 +214,7 @@ Slow linters can be instead run as part of a continuous integration check.
 
 ## Continuous Integration and code checkers
 
-It is a good pratice to add checks to make sure that any code causing `go vet`
+It is a good practice to add checks to make sure that any code causing `go vet`
 or `golint` doesn't build, specially if you're using tools like Travis CI,
 Jenkins, and others.
 

@@ -9,8 +9,3 @@ code bases. This includes:
 
 Everything here is related to source code, in the next section we cover how from that code
 you can build artifacts such as binaries and container images.
-
-### Navigation
-
-- [Go to next section](../2-building-artifcats/README.md)
-- [Back to the start](../README.md)

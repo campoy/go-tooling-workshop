@@ -139,7 +139,7 @@ expressions you can also use the debug console at the bottom of the editor. Type
 `r.URL.Path` in there, and you'll see its value.
 
 Alternatively, you can also modify your user settings to set `"debug.inlineValues"` to `true`,
-so you'll be able to see inline the values of the variables as you asign them.
+so you'll be able to see inline the values of the variables as you assign them.
 
 To control the execution you can now use the debug menu displayed below instead of typing
 `next`, `continue`, etc.
@@ -165,7 +165,7 @@ function. This means that the length of `match` will never be 1! It will be eith
 ## Congratulations
 
 You're a master of delve! Seriously, there's not much more to learn about debuggers and this
-will help you figure out why your code behave misteriously.
+will help you figure out why your code behave mysteriously.
 
 But as we say at Google ["testing rocks, debugging sucks!"](https://docs.google.com/presentation/d/1tahi9BSW8wR3R2DWTRp4eH0ZmZQFpYvEjAby942EykE/edit#slide=id.i0),
 so let's stop debugging and learn how to test with the [next chatper](../2-testing/1-go-test.md).

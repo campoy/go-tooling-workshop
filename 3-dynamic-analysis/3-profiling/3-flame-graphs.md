@@ -65,7 +65,7 @@ How can you make it faster?
 
 Do a small modification at a time, and make sure to either use benchmarks or
 profile the running server to decide what's the next step. Then use `go-wrk`
-to have a new idea of the external perforamnce of the server.
+to have a new idea of the external performance of the server.
 
 Document everything, because that's the only way you will be able to explain
 why your server is now *magically* twice as fast!

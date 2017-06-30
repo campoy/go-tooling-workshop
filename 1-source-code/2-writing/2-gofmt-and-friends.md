@@ -204,7 +204,7 @@ Renamed 2 occurrences in 1 file in 1 package.
 ```
 
 
-Or alternatively you can use a contextual menu by clicking on one of the occurences
+Or alternatively you can use a contextual menu by clicking on one of the occurrences
 of `doStuff` on VSCode.
 
 ![Renaming a local variable](rename.png)
