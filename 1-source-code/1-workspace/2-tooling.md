@@ -16,7 +16,7 @@ For instance, given that you've ran `go get github.com/golang/example/hello` in 
 you should be able to list all the packages under `github.com/golang/example` by running:
 
 ```bash
-> go list github.com/golang/example/...    # remember that ... means "and everything below"
+$ go list github.com/golang/example/...    # remember that ... means "and everything below"
 github.com/golang/example/appengine-hello
 github.com/golang/example/gotypes
 github.com/golang/example/gotypes/defsuses

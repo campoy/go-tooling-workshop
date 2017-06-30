@@ -14,7 +14,7 @@ should be in your environment. But if it's not defined, you will get a default
 value that you can check running
 
 ```bash
-> go env GOPATH
+$ go env GOPATH
 ```
 
 Under this directory you will find three subdirectories:
@@ -72,7 +72,7 @@ store your Go code somewhere else, simply declare an environment variable named
 Now run this command:
 
 ```bash
-go get github.com/golang/example/hello
+$ go get github.com/golang/example/hello
 ```
 
 This will create the three directories mentioned previously, explore their contents.
@@ -90,7 +90,7 @@ On top of the basic `go get` usage that we saw above, there's some flags that mi
 If you run `go get` with an import path that doesn't contain any Go code, you will see an error:
 
 ```bash
-> go get github.com/campoy/go-web-workshop
+$ go get github.com/campoy/go-web-workshop
 can't load package: package github.com/campoy/go-web-workshop: no buildable Go source files in /Users/campoy/src/github.com/campoy/go-web-workshop
 ```
 
@@ -98,7 +98,7 @@ In this case it is because the Go code is in directories under that root. You ca
 install all packages under that import path by adding three trailing dots `...`.
 
 ```bash
-> go get github.com/campoy/go-web-workshop/...
+$ go get github.com/campoy/go-web-workshop/...
 ```
 
 This works with all Go tools, it might be handy for testing too.

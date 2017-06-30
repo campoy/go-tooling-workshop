@@ -22,7 +22,7 @@ Then while running the server and some traffic into it with `go-wrk`, we can
 run the following command.
 
 ```bash
-go-torch -t 5
+$ go-torch -t 5
 INFO[23:10:47] Run pprof command: go tool pprof -raw -seconds 5 http://localhost:8080/debug/pprof/profile
 INFO[23:10:52] Writing svg to torch.svg
 ```
