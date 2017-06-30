@@ -242,7 +242,7 @@ Let's try again, this time sending some traffic with `go-wrk` first, then starti
 In a terminal run:
 
 ```bash
-$ go-wrk -n 10000 -c 10 http://localhost:8080
+$ go-wrk -d 30 http://localhost:8080
 ```
 
 This will take around a minute to run, so in the meanwhile we can run
@@ -258,19 +258,20 @@ Time: Jun 29, 2017 at 9:36pm (EDT)
 Duration: 5s, Total samples = 0
 Entering interactive mode (type "help" for commands, "o" for options)
 (pprof) top
-Showing nodes accounting for 130ms, 100% of 130ms total
-Showing top 10 nodes out of 68
+13.92s of 15.30s total (90.98%)
+Dropped 185 nodes (cum <= 0.08s)
+Showing top 10 nodes out of 100 (cum >= 0.08s)
       flat  flat%   sum%        cum   cum%
-      40ms 30.77% 30.77%       40ms 30.77%  runtime.mach_semaphore_signal /Users/campoy/src/golang.org/x/go/src/runtime/sys_darwin_amd64.s
-      30ms 23.08% 53.85%       30ms 23.08%  syscall.Syscall /Users/campoy/src/golang.org/x/go/src/syscall/asm_darwin_amd64.s
-      20ms 15.38% 69.23%       20ms 15.38%  runtime.mach_semaphore_wait /Users/campoy/src/golang.org/x/go/src/runtime/sys_darwin_amd64.s
-      20ms 15.38% 84.62%       20ms 15.38%  runtime.usleep /Users/campoy/src/golang.org/x/go/src/runtime/sys_darwin_amd64.s
-      10ms  7.69% 92.31%       10ms  7.69%  runtime.mach_semaphore_timedwait /Users/campoy/src/golang.org/x/go/src/runtime/sys_darwin_amd64.s
-      10ms  7.69%   100%       10ms  7.69%  syscall.Syscall6 /Users/campoy/src/golang.org/x/go/src/syscall/asm_darwin_amd64.s
-         0     0%   100%       10ms  7.69%  bufio.(*Writer).Flush /Users/campoy/src/golang.org/x/go/src/bufio/bufio.go
-         0     0%   100%       20ms 15.38%  internal/poll.(*FD).Accept /Users/campoy/src/golang.org/x/go/src/internal/poll/fd_unix.go
-         0     0%   100%       10ms  7.69%  internal/poll.(*FD).SetReadDeadline /Users/campoy/src/golang.org/x/go/src/internal/poll/fd_poll_runtime.go
-         0     0%   100%       10ms  7.69%  internal/poll.(*FD).SetsockoptInt /Users/campoy/src/golang.org/x/go/src/internal/poll/sockopt.go
+    10.79s 70.52% 70.52%     10.80s 70.59%  syscall.Syscall
+     0.71s  4.64% 75.16%      0.71s  4.64%  runtime.usleep
+     0.64s  4.18% 79.35%      0.64s  4.18%  runtime.mach_semaphore_wait
+     0.63s  4.12% 83.46%      0.63s  4.12%  runtime.kevent
+     0.46s  3.01% 86.47%      0.46s  3.01%  runtime.mach_semaphore_signal
+     0.28s  1.83% 88.30%      0.29s  1.90%  runtime.freedefer
+     0.16s  1.05% 89.35%      0.16s  1.05%  nanotime
+     0.09s  0.59% 89.93%      0.42s  2.75%  runtime.mallocgc
+     0.08s  0.52% 90.46%      0.08s  0.52%  runtime.duffcopy
+     0.08s  0.52% 90.98%      0.08s  0.52%  runtime.heapBitsSetType
 ```
 
 Cool, this time the profile got some data. Not easy to understand though, so let's

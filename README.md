@@ -25,6 +25,14 @@ The workshop is for now composed of three independent sections:
 In the future one more section might be added regarding monitoring of running
 systems, but for now that topic is out of the scope of this workshop.
 
+## Issues
+
+This workshop is very new, so some things might be missing or wrong.
+
+If you find anything that seems broken, please file an issue. Or even better,
+send a pull request! You will need to sign a CLA, you'll get the info once
+you send the PR.
+
 ## Resources
 
 These are places where you can find more information for Go:

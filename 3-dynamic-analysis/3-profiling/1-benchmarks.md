@@ -65,10 +65,10 @@ would need to track how long it takes to answer a single request.
 
 There's many tools that provide this functionality, such as
 [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html). In this
-workshop we will use [go-work](https://github.com/adjust/go-wrk), which can be installed with `go get`:
+workshop we will use [go-work](https://github.com/tsliwowicz/go-wrk), which can be installed with `go get`:
 
 ```bash
-$ go get github.com/adjust/go-wrk
+$ go get github.com/tsliwowicz/go-wrk
 ```
 
 Start running the `webserver` binary, then run `go-wrk` to get an analysis of
@@ -82,50 +82,22 @@ $ go run main.go
 In a different terminal:
 
 ```bash
-$ go-wrk http://localhost:8080
-==========================BENCHMARK==========================
-URL:				http://localhost:8080
-
-Used Connections:		100
-Used Threads:			1
-Total number of calls:		1000
-
-===========================TIMINGS===========================
-Total time passed:		8.48s
-Avg time per request:		632.28ms
-Requests per second:		117.86
-Median time per request:	45.67ms
-99th percentile time:		2076.06ms
-Slowest time for request:	4088.00ms
-
-=============================DATA=============================
-Total response body sizes:		16000
-Avg response body per request:		16.00ms
-Transfer rate per second:		1885.84 Byte/s (0.00 MByte/s)
-==========================RESPONSES==========================
-20X Responses:		1000	(100.00%)
-30X Responses:		0	(0.00%)
-40X Responses:		0	(0.00%)
-50X Responses:		0	(0.00%)
-Errors:			0	(0.00%)
+$ go-wrk -d 5 http://localhost:8080
+Running 5s test @ http://localhost:8080
+  10 goroutine(s) running concurrently
+164677 requests in 4.914899534s, 18.22MB read
+Requests/sec:           33505.67
+Transfer/sec:           3.71MB
+Avg Req Time:           298.456µs
+Fastest Request:        78.387µs
+Slowest Request:        10.08497ms
+Number of Errors:       0
 ```
 
-Great! We now know that we're able to handle around 117 requests
-per second and that the average time per request is 632ms.
+Great! We now know that we're able to handle around 33505 requests
+per second and that the average time per request is 298ms.
 
-It is important to understand what percentiles are. A Xth percentile
-time is the value for which X% of the requests will be faster.
-So the 99th percentile time being 2 seconds means that 1% of the requests
-are 2 seconds or slower. Even worse, it seems the slowest request
-took over 4 seconds!
-
-### Exercise: go-wrk
-
-Such a high 99th percentile, given the median time, means that our server
-is having capacity issues.
-
-Play with the flags available in `go-wrk` and see how you can get the 99th
-percentile time lower or higher. Have fun trying to crash your server!
+But it seems the slowest request took over 10ms!
 
 ## Benchmarks
 
