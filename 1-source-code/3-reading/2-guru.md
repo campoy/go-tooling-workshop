@@ -48,4 +48,4 @@ bugs (or at least not too many), and analyze and navigate any code
 base that you might find.
 
 What's the next step? Well, we should start compiling that code!
-Let's do that now, with the [next section](../2-building-artifacts/README.md).
+Let's do that now, with the [next section](../../2-building-artifacts/1-go-build.md).
