@@ -218,6 +218,11 @@ It is a good pratice to add checks to make sure that any code causing `go vet`
 or `golint` doesn't build, specially if you're using tools like Travis CI,
 Jenkins, and others.
 
+If you think these tools are useful, you should definitely check out
+[goreportcard](https://goreportcard.com/) which allows you to run a
+bunch of these checkers as part of your GitHub flow. This workshop uses it
+to make sure there's no typos!
+
 ## Congratulations
 
 You are now able to produce code with less mistakes, because you're able to detect

@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/campoy/go-tooling-workshop)](https://goreportcard.com/report/github.com/campoy/go-tooling-workshop)
+
 # Go Tooling in Action
 
 Hi, and welcome to "Go Tooling in Action". This is a multi hour workshop,
