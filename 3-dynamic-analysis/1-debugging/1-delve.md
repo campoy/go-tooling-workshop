@@ -168,4 +168,4 @@ You're a master of delve! Seriously, there's not much more to learn about debugg
 will help you figure out why your code behave mysteriously.
 
 But as we say at Google ["testing rocks, debugging sucks!"](https://docs.google.com/presentation/d/1tahi9BSW8wR3R2DWTRp4eH0ZmZQFpYvEjAby942EykE/edit#slide=id.i0),
-so let's stop debugging and learn how to test with the [next chatper](../2-testing/1-go-test.md).
+so let's stop debugging and learn how to test with the [next chapter](../2-testing/1-go-test.md).
