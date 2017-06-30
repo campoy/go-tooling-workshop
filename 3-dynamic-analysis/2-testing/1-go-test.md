@@ -249,6 +249,15 @@ server.
 Use an `Ouput` comment to make sure that if you run `go test` and the
 output doesn't match the example will fail.
 
+### Exercise (optional): testing an `http.Handler`
+
+In order to test an `http.Handler` or an `http.HandlerFunc` we need to provide
+an `http.Request` and an `http.ResponseWriter`. The first one is easy to create,
+but the second one is a bit trickier.
+
+For a slightly more advanced exercise try to write a test for the `handler`
+function defined in our [webserver](../webserver) program.
+
 ## Congratulations
 
 You're now able to write unit tests and examples, and you're able to run them
@@ -256,6 +265,3 @@ on any package you wish. That's pretty awesome!
 
 Next we're going to learn how to figure out what parts of your code you should
 be testing with [code coverage](2-code-coverage.md).
-
-
-TODO: testing of http endpoints?

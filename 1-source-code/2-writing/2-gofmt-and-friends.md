@@ -153,28 +153,6 @@ Do you see that new import path? If not, make sure you run `go get github.com/Si
 Notice that `goimports` is a replacement of `gofmt`, since it *formats* the code and manages
 the import statements.
 
-<!--### `goreturns`: completing returns statements
-
-In Go, functions can return as many values as needed. Additionally, often the last value returned
-is of type `error`, and whenever that value is not `nil` the rest of values are considered to be
-irrelevant and shouldn't be used by the caller.
-
-All of this is by convention, but it is a very well accepted convention, so tooling around it
-has been created.
-
-```go
-package root
-
-func Sqrt(x float64) (float64, error) {
-    if x < 0 {
-        return fmt.Errorf("can't compute the square root of negative numbers")
-    }
-    return math.Sqrt(x), nil
-}
-```
-
-TODO(campoy): figure out how to use `goreturns`.-->
-
 # Fixing, renaming and other refactoring
 
 So far we've seen tools that modify code that either doesn't compile or doesn't comply to some
@@ -183,10 +161,6 @@ on how to do so.
 
 Now we're going to cover those tools that modify code in order to perform fixes, renaming
 variables, or other kinds of refactoring on code that already compiles.
-
-## `gofmt -r`
-
-TODO
 
 ## `go fix`
 

@@ -292,5 +292,3 @@ each function call ... unfortunately those graphics are not easy to parse.
 
 Let's learn a different way to display that data on the
 [next chapter](3-flame-graphs.md).
-
-TODO: Cover other profiles? memprofile, lockprofile, etc

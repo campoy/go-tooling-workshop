@@ -180,9 +180,37 @@ is incredibly important that no errors are *silently* ignored.
 
 We're lucky, `errcheck` checks exactly that!
 
-# TODO
+# errcheck
 
-explain how to install and use errcheck, also how to integrate it with VSCode
+Let's see how to use [errcheck](https://github.com/kisielk/errcheck). This tool
+detects when an error is silently ignored. This means that for a function that
+returns at least one error we are ommitting to check the returned values.
+
+Given a `foo() error` function, we'll say that:
+
+- `foo()` is silently omitting the error, while
+- `_ = foo()` is omitting the error explicitly.
+
+errcheck will report only the first case.
+
+In order to install it, simply run:
+
+```bash
+$ go get github.com/kisielk/errcheck
+```
+
+Then run it on any Go file you'd like to verify:
+
+```bash
+$ errcheck errcheck.go
+errcheck.go:24:21:      http.ListenAndServe(":80", nil)
+```
+
+As you can see this linter is pretty slow, so it is not recommended to have it
+enabled by default. But if you wish to do so, you can find the instructions on
+how to do so [here](https://github.com/Microsoft/vscode-go#linter).
+
+Slow linters can be instead run as part of a continuous integration check.
 
 ## Continuous Integration and code checkers
 

@@ -183,5 +183,3 @@ You're now an expert on ... basic compilation of Go programs. But you're already
 to cross-compile Go programs to other platforms!
 
 In the [next chapter](./2-docker.md), let's learn how to build binaries for `Docker`.
-
-TODO: Should I talk about go-bindata? or just move to Docker? maybe to dynamic analysis?
