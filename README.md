@@ -9,6 +9,16 @@ After going through the whole content, you will know about what tools can
 help you better write Go code, how to build artifacts from that code, and
 how to understand the performance of your code once it's running.
 
+For a shorter and sweeter version of this workshop, you can watch the video
+that I made for a conference, and inspired me to create this workshop.
+
+<div style="text-align:center">
+    <a href="https://www.youtube.com/watch?v=uBjoTxosSys">
+        <img src="https://img.youtube.com/vi/uBjoTxosSys/0.jpg" alt="Go Tooling in Action">
+        <p>Go Tooling in Action</p>
+    </a>
+</div>
+
 ## Setting up your workspace
 
 To go through this you will need the following:
