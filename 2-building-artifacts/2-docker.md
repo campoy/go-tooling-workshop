@@ -1,5 +1,7 @@
 # Running Go programs in Docker containers
 
+This should be done!
+
 ## Congratulations
 
 You're now able to build Docker images that not only run your Go programs correctly,

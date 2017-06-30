@@ -11,8 +11,4 @@ We will also cover some cool techniques to embed assets into our static
 binaries to simplify deployment.
 
 There's a lot of material to cover in this section, so let's get
-started with the [first chapter](1-standalone-binaries/1-go-build.md)
-and learn how to compile a simple Go program.
-
-On the [second chapter](2-docker/1-docker-images.md) we will cover
-how to build Docker images.
+started with the [first chapter](1-go-build.md) and learn how to compile a simple Go program.
