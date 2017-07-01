@@ -25,7 +25,7 @@ This tool is the result of months of work by the [Dependency Management Working 
 The `dep` tool will manage dependencies in the `vendor` directory.
 It has a very small number of features by design, keeping it as simple as possible to enable more.
 
-To install `dep` simple run:
+To install `dep` simply run:
 
 ```bash
 $ go get -u github.com/golang/dep/cmd/dep
