@@ -129,7 +129,7 @@ import statements.
 Even cooler, `goimports` will also find references to packages that are not imported
 and add them.
 
-You might ask how this magic works. It's quite straightforward. Given an expression such as
+"How does this magic work?" you ask. It's quite straightforward. Given an expression such as
 `fmt.Println`, `goimports` will find a package named `fmt` that exports an identifier named
 `Println`. It adds the first one it finds. This means that in some cases you might end up
 importing the wrong package, but this occurs so rarely that the tool is still very useful.
