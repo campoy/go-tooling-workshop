@@ -66,7 +66,7 @@ would need to track how long it takes to answer a single request.
 
 There's many tools that provide this functionality, such as
 [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html). In this
-workshop we will use [go-work](https://github.com/tsliwowicz/go-wrk), which can be installed with `go get`:
+workshop we will use [go-wrk](https://github.com/tsliwowicz/go-wrk), which can be installed with `go get`:
 
 ```bash
 $ go get github.com/tsliwowicz/go-wrk
@@ -96,7 +96,7 @@ Number of Errors:       0
 ```
 
 Great! We now know that we're able to handle around 33505 requests
-per second and that the average time per request is 298ms.
+per second and that the average time per request is 298µs.
 
 But it seems the slowest request took over 10ms!
 
