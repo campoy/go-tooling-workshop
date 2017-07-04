@@ -113,7 +113,7 @@ Cool, right?
 
 ## More than formatting
 
-Once gophers were used to having a tool chaing their code on save, many other tools appear
+Once gophers were used to having a tool changing their code on save, many other tools appear
 that made our coding more efficient. Let's see some of them by order of popularity.
 
 These tools differ from `gofmt` in that they modify your code from something that *almost*
