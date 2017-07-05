@@ -199,7 +199,7 @@ func doStuff(name string) {
 You can rename `doStuff` to a more appropriate name directly from your console:
 
 ```bash
-$ gorename -from torename.go::greet -to doStuff
+$ gorename -from torename.go::doStuff -to greet
 Renamed 2 occurrences in 1 file in 1 package.
 ```
 
