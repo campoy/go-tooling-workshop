@@ -117,7 +117,7 @@ Run `go test` once you've written them.
 
 ## Table driven tests and subtests
 
-Very often you will find yourself writing repeatetive tests, let's imagine that you
+Very often you will find yourself writing repetitive tests, let's imagine that you
 were writing a test for `strings.Index`, you might end up writing something like:
 
 [embedmd]:# (strings_test.go /TestIndex_Repeat/ /^}/)
