@@ -107,7 +107,7 @@ Finally, we can add any custom tags we might want to use, and defined them via b
 we can pass to `go build` with the `-tags` flag.
 
 You can see an example on how to enable/disable logging with zero cost at runtime by
-the great Dave Chenney on [this blog post](https://dave.cheney.net/2014/09/28/using-build-to-switch-between-debug-and-release).
+the great Dave Cheney on [this blog post](https://dave.cheney.net/2014/09/28/using-build-to-switch-between-debug-and-release).
 
 And since we're at it, let's talk about build flags.
 
