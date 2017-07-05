@@ -15,7 +15,7 @@ each language covering all of the aspects of the language, including formatting
 conventions such as how many spaces you should have in between a comment and the line
 commented, or where should blank lines should be used.
 
-Instead of writing more style guide, the Go team decided that it would be much easier
+Instead of writing one more style guide, the Go team decided that it would be much easier
 to simply say all Go code should be formatted using the "go formatting" tool, known
 as `gofmt`.
 
@@ -81,7 +81,7 @@ $ gofmt -w main.go
 ```
 
 Remember these ways of calling `gofmt`, because most of the tools that
-we'll see in this chapter use the same call conventions.
+we'll see in this chapter use the same calling conventions.
 
 Finally, there's an easy way to format all the code in a package, simply use
 the `fmt` subcommand in the `go` tool and the package to format:
@@ -102,7 +102,7 @@ Copy the original code of `main.go` above and modify it in the following ways:
 
 ### Integrating `gofmt` in your editor
 
-By installing `vscode-go` on VSCode you already got `gofmt` added as an on-save hook.
+By installing `vscode-go` on VSCode you've already got `gofmt` added as an on-save hook.
 This means that every time you save your file `gofmt` will modify your code to match
 the canonical format. This might seem annoying at first, but you will soon get used
 to it, to the point that whenever `gofmt` doesn't change your code on save, you'll know
@@ -113,7 +113,7 @@ Cool, right?
 
 ## More than formatting
 
-Once gophers were used to having a tool changing their code on save, many other tools appear
+Once gophers were used to having a tool change their code on save, many other tools appeared
 that made our coding more efficient. Let's see some of them by order of popularity.
 
 These tools differ from `gofmt` in that they modify your code from something that *almost*
@@ -121,15 +121,15 @@ compiles to valid source code.
 
 ### `goimports`: automating import statements
 
-Go is very strict regarding missing or even unused import statements. This cause enough
+Go is very strict regarding missing or even unused import statements. This causes enough
 annoyance to a part of the community that they decided to automate the management of
 import statements.
 
-`goimports` will remove import statements for any packages that are not used in the code
-below. Even cooler, `goimports` will also find references to packages that are not imported
+`goimports` will remove import statements for any packages that are not used in the code.
+Even cooler, `goimports` will also find references to packages that are not imported
 and add them.
 
-How does this magic work, you say? It's quite straight forward, given an expression such as
+"How does this magic work?" you ask. It's quite straightforward. Given an expression such as
 `fmt.Println`, `goimports` will find a package named `fmt` that exports an identifier named
 `Println`. It adds the first one it finds. This means that in some cases you might end up
 importing the wrong package, but this occurs so rarely that the tool is still very useful.
@@ -137,7 +137,7 @@ importing the wrong package, but this occurs so rarely that the tool is still ve
 The search for packages is not done only over the standard library, but over your whole
 `GOPATH`! This makes writing code very effective, but if your `GOPATH` contains a huge amount
 of code, the first calls to `goimports` might be a bit slow, but the results are cached for
-next invocations.
+later invocations.
 
 #### Exercise: `goimports`
 
