@@ -188,9 +188,8 @@ TestIndex_Subtest(t *testing.T) {
 			if idx := strings.Index(tc.text, tc.sub); idx != tc.idx {
 				if tc.idx >= 0 {
 					t.Fatalf("%s should contain %s at position %d, not %d", tc.text, tc.sub, tc.idx, idx)
-				} else {
-					t.Fatalf("%s should not contain %s", tc.text, tc.sub)
 				}
+				t.Fatalf("%s should not contain %s", tc.text, tc.sub)
 			}
 		})
 	}
