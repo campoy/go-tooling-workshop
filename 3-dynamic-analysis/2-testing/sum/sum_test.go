@@ -17,5 +17,5 @@ package sum_test
 import "testing"
 
 func TestAll(t *testing.T) {
-	t.Fatalf("test not implemented")
+	// Implement the body of this test, calling sum.All.
 }

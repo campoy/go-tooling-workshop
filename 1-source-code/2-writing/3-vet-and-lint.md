@@ -152,7 +152,7 @@ As for editing, many tools have been created that can be used to analyze your co
 early on and detect mistakes. We will cover just one more, one that will detect
 what the problem is with the following code.
 
-[embedmd]:# (errcheck.go /package main/ $)
+[embedmd]:# (errcheck/main.go /package main/ $)
 ```go
 package main
 
@@ -202,8 +202,8 @@ $ go get github.com/kisielk/errcheck
 Then run it on any Go file you'd like to verify:
 
 ```bash
-$ errcheck errcheck.go
-errcheck.go:24:21:      http.ListenAndServe(":80", nil)
+$ errcheck errcheck/main.go
+errcheck/main.go:24:21:      http.ListenAndServe(":80", nil)
 ```
 
 As you can see this linter is pretty slow, so it is not recommended to have it

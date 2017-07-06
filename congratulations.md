@@ -11,3 +11,4 @@ questions too.
 I hope you enjoyed it as much as I did writing it, and I hope you learned a ton.
 
 ![fancy gopher](fancygopher.jpg)
+The Go gopher is a creation by Renee French.

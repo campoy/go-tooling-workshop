@@ -16,6 +16,9 @@ package main
 
 import "fmt"
 
+// HINT: You might need to move this declaration to a different file.
+const version = "development"
+
 func main() {
-	fmt.Println("running %s version", version)
+	fmt.Printf("running %s version", version)
 }

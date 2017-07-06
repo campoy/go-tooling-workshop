@@ -40,9 +40,9 @@ instead your editor will call it.
 
 ### Exercise: code completion
 
-Open [hello.go](hello.go) with VSCode, you should see this content:
+Open [hello/main.go](hello/main.go) with VSCode, you should see this content:
 
-[embedmd]:# (hello.go /package main/ $)
+[embedmd]:# (hello/main.go /package main/ $)
 ```go
 package main
 
