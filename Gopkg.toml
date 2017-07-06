@@ -1,1 +1,5 @@
 required = ["github.com/golang/example/hello"]
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/Sirupsen/logrus"

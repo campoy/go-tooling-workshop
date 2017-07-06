@@ -376,7 +376,7 @@ ccflags="$@"
 		$2 == "IFNAMSIZ" ||
 		$2 ~ /^CTL_(MAXNAME|NET|QUERY)$/ ||
 		$2 ~ /^SYSCTL_VERS/ ||
-		$2 ~ /^(MS|MNT)_/ ||
+		$2 ~ /^(MS|MNT|UMOUNT)_/ ||
 		$2 ~ /^TUN(SET|GET|ATTACH|DETACH)/ ||
 		$2 ~ /^(O|F|E?FD|NAME|S|PTRACE|PT)_/ ||
 		$2 ~ /^LINUX_REBOOT_CMD_/ ||

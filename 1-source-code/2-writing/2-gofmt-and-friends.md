@@ -176,9 +176,9 @@ these fixes were more common while the language was still actively changing.
 
 `gorename` provides renaming of identifiers in a type safe way across files and even packages.
 
-Given the following code in [torename.go](torename.go):
+Given the following code in [torename/main.go](torename/main.go):
 
-[embedmd]:# (torename.go /package main/ $)
+[embedmd]:# (torename/main.go /package main/ $)
 ```go
 package main
 
@@ -199,7 +199,7 @@ func doStuff(name string) {
 You can rename `doStuff` to a more appropriate name directly from your console:
 
 ```bash
-$ gorename -from torename.go::doStuff -to greet
+$ gorename -from torename/main.go::doStuff -to greet
 Renamed 2 occurrences in 1 file in 1 package.
 ```
 
@@ -217,9 +217,9 @@ quick result.
 
 Some packages in the standard library, such as `encoding/json` and `encoding/xml`,
 use struct field tags as a way to provide information on how a struct should
-be encoded. For instance given the code in [tags.go](tags.go):
+be encoded. For instance given the code in [tags/main.go](tags/main.go):
 
-[embedmd]:# (tags.go /package main/ $)
+[embedmd]:# (tags/main.go /package main/ $)
 ```go
 package main
 
@@ -255,7 +255,7 @@ You can make `Name` and `Age` appear as `name` and `age` in the JSON output by
 running `gomodifytags`:
 
 ```bash
-$ gomodifytags -file tags.go -add-tags json -struct Person
+$ gomodifytags -file tags/main.go -add-tags json -struct Person
 package main
 
 import (

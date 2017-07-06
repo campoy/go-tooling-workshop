@@ -1817,6 +1817,7 @@ const (
 	TUNSETVNETBE                         = 0x800454de
 	TUNSETVNETHDRSZ                      = 0x800454d8
 	TUNSETVNETLE                         = 0x800454dc
+	UMOUNT_NOFOLLOW                      = 0x8
 	VDISCARD                             = 0x10
 	VEOF                                 = 0x4
 	VEOL                                 = 0x6

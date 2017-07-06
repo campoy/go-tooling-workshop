@@ -82,7 +82,7 @@ package sum
 import "testing"
 
 func TestRecursive(t *testing.T) {
-	t.Fatalf("test not implemented")
+	// Implement the body of this test, calling recursive.
 }
 ```
 
@@ -100,7 +100,7 @@ package sum_test
 import "testing"
 
 func TestAll(t *testing.T) {
-	t.Fatalf("test not implemented")
+	// Implement the body of this test, calling sum.All.
 }
 ```
 
@@ -187,15 +187,18 @@ TestIndex_Subtest(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			if idx := strings.Index(tc.text, tc.sub); idx != tc.idx {
 				if tc.idx >= 0 {
-					t.Errorf("%s should contain %s at position %d, not %d", tc.text, tc.sub, tc.idx, idx)
+					t.Fatalf("%s should contain %s at position %d, not %d", tc.text, tc.sub, tc.idx, idx)
 				} else {
-					t.Errorf("%s should not contain %s", tc.text, tc.sub)
+					t.Fatalf("%s should not contain %s", tc.text, tc.sub)
 				}
 			}
 		})
 	}
 }
 ```
+
+_Note_: you can use `Fatalf` with subtests and only the current subtest will fail, unlike in the
+previous loops where later tests would be ignored.
 
 If you run `go test -v` you'll see the subtest that were ran.
 

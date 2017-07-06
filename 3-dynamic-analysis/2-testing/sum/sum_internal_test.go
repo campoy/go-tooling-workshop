@@ -17,5 +17,5 @@ package sum
 import "testing"
 
 func TestRecursive(t *testing.T) {
-	t.Fatalf("test not implemented")
+	// Implement the body of this test, calling recursive.
 }
