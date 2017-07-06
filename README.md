@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/campoy/go-tooling-workshop)](https://goreportcard.com/report/github.com/campoy/go-tooling-workshop)
+[![Build Status](https://travis-ci.org/campoy/go-tooling-workshop.svg?branch=master)](https://travis-ci.org/campoy/go-tooling-workshop) [![Go Report Card](https://goreportcard.com/badge/github.com/campoy/go-tooling-workshop)](https://goreportcard.com/report/github.com/campoy/go-tooling-workshop)
 
 # Go Tooling in Action
 
