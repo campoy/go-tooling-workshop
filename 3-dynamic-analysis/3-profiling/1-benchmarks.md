@@ -147,7 +147,7 @@ The number of memory allocations is also a good indicator of how well a function
 might perform at scale, and you can obtain it by adding `-benchmem`.
 
 ```bash
-$ go test -bench=.
+$ go test -bench=. -benchmem
 goos: darwin
 goarch: amd64
 pkg: github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling
