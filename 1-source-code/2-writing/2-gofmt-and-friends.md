@@ -61,7 +61,7 @@ func main() {
 We can also only print the diff between the input and the formatted output
 by using the `-d` flag.
 
-```bash
+```diff
 $ gofmt -d main.go
  package main
 +

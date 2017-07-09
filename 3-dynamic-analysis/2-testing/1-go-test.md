@@ -4,7 +4,7 @@ Writing good unit tests is very important not only to show that your
 code works while you write it, but also to ensure that future updates
 to your code do not break existing functionality.
 
-There's a lot of bibliogropahy on what is a good test, or when tests
+There's a lot of bibliography on what is a good test, or when tests
 should be written, so I will not cover any of those here. Instead we will
 simply see how tests are written in Go.
 
@@ -55,6 +55,7 @@ You have two options depending on what kind of tests you want
 to write for a given package `sum` in the directory [sum](sum).
 
 Given a file `sum.go`:
+
 [embedmd]:# (sum/sum.go /package sum/ $)
 ```go
 package sum
@@ -235,7 +236,7 @@ of executing the example.
 To do this, we simply add a comment of the form:
 
 ```go
-func ExmampleHelloWorld() {
+func ExampleHelloWorld() {
     fmt.Println("hello, world")
     // Output:
     // hello, world
