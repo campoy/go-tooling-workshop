@@ -55,6 +55,7 @@ You have two options depending on what kind of tests you want
 to write for a given package `sum` in the directory [sum](sum).
 
 Given a file `sum.go`:
+
 [embedmd]:# (sum/sum.go /package sum/ $)
 ```go
 package sum
@@ -237,7 +238,7 @@ of executing the example.
 To do this, we simply add a comment of the form:
 
 ```go
-func ExmampleHelloWorld() {
+func ExampleHelloWorld() {
     fmt.Println("hello, world")
     // Output:
     // hello, world
