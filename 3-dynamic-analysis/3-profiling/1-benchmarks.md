@@ -161,19 +161,119 @@ Sometimes your benchmarks might be way faster that you would expect. When
 that happens do not be too happy, it might be caused by a compiler optimization
 that simply removed the function call you thought you were measuring.
 
+For instance, let's see this code:
 
-In order to avoid that, it is a good idea to store the result of the function call
-in a package variable. This will force the compiler to keep the call.
-
-[embedmd]:# (strings_test.go /var res/ $)
+[embedmd]:# (benchmarks_test.go /func div/ /^$/)
 ```go
-var res []string
-
-func BenchmarkFields_Escape(b *testing.B) {
+func div(a, b int) int {
+	return int(float64(a) / float64(b))
+}
+func BenchmarkDiv(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		res = strings.Fields("hello, dear friend")
+		div(2, 3)
 	}
 }
+```
+
+If we run the benchmark we will get a surpsiring result:
+
+```bash
+$ go test -bench=Div
+BenchmarkDiv-8   	2000000000	         0.28 ns/op
+PASS
+ok  	github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling	0.603s
+```
+
+This seems a bit too fast, even for a simple piece of code as the one we're benchmarking.
+We can see the generated code by adding `-gcflags "-S"`:
+
+```bash
+$ go test benchmarks_test.go -bench=Div -gcflags "-S" 2>& out.text
+goos: darwin
+goarch: amd64
+BenchmarkDiv-8          2000000000               0.28 ns/op
+PASS
+ok      command-line-arguments  0.612s
+
+$ cat out.text
+# omitted content
+"".BenchmarkDiv STEXT nosplit size=25 args=0x8 locals=0x0
+	0x0000 00000 (benchmarks_test.go:23)	TEXT	"".BenchmarkDiv(SB), NOSPLIT, $0-8
+	0x0000 00000 (benchmarks_test.go:23)	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
+	0x0000 00000 (benchmarks_test.go:23)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x0000 00000 (benchmarks_test.go:23)	MOVQ	"".b+8(SP), AX
+	0x0005 00005 (benchmarks_test.go:23)	MOVL	$0, CX
+	0x0007 00007 (benchmarks_test.go:24)	JMP	12
+	0x0009 00009 (benchmarks_test.go:24)	INCQ	CX
+	0x000c 00012 (benchmarks_test.go:24)	MOVQ	240(AX), DX
+	0x0013 00019 (benchmarks_test.go:24)	CMPQ	CX, DX
+	0x0016 00022 (benchmarks_test.go:24)	JLT	9
+	0x0018 00024 (benchmarks_test.go:27)	RET
+# omitted content
+```
+
+_NOTE_: In Mac, you might see two definitions of the same function. The second one is the one we care about.
+There's an [issue](https://github.com/golang/go/issues/20976) filed to fix this behavior.
+
+You don't need to understand the whole thing, but the point is that there's no function call 
+
+The problem here is that the function call to `div` has been inlined, and the inlined code
+has been deleted as it can be proven that its result is never used.
+
+You can see when a function call is inlined by using `gcflag "-m"`. Try it.
+
+A possible fix to this would be to use the `noinline` pragma, to avoid having `div` inlined.
+This would fix the problem, but would alter the results of our performance analysis too.
+
+A better idea is tostore the result of the function call
+in a package variable. This will force the compiler to keep the call.
+
+[embedmd]:# (benchmarks_test.go /var s/ $)
+```go
+var s int
+
+func BenchmarkDiv_Escape(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s = div(2, 3)
+	}
+}
+```
+
+The generated assembly will now contain a division instruction `DIVSD` showing that the
+function was inlined but the code is still there.
+
+```bash
+$ go test benchmarks_test.go -bench=Div_Escape -gcflags "-S" 2>& out.text
+goos: darwin
+goarch: amd64
+BenchmarkDiv_Escape-8           500000000                3.75 ns/op
+PASS
+ok      command-line-arguments  2.277s
+
+$ cat out.text
+# omitted content
+"".BenchmarkDiv_Escape STEXT nosplit size=67 args=0x8 locals=0x0
+	0x0000 00000 (benchmarks_test.go:30)	TEXT	"".BenchmarkDiv_Escape(SB), NOSPLIT, $0-8
+	0x0000 00000 (benchmarks_test.go:30)	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
+	0x0000 00000 (benchmarks_test.go:30)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x0000 00000 (benchmarks_test.go:30)	MOVQ	"".b+8(SP), AX
+	0x0005 00005 (benchmarks_test.go:30)	MOVL	$0, CX
+	0x0007 00007 (benchmarks_test.go:31)	JMP	54
+	0x0009 00009 (benchmarks_test.go:32)	MOVL	$2, DX
+	0x000e 00014 (benchmarks_test.go:32)	XORPS	X0, X0
+	0x0011 00017 (benchmarks_test.go:32)	CVTSQ2SD	DX, X0
+	0x0016 00022 (benchmarks_test.go:32)	MOVL	$3, BX
+	0x001b 00027 (benchmarks_test.go:32)	XORPS	X1, X1
+	0x001e 00030 (benchmarks_test.go:32)	CVTSQ2SD	BX, X1
+	0x0023 00035 (benchmarks_test.go:32)	DIVSD	X1, X0					# a division
+	0x0027 00039 (benchmarks_test.go:32)	CVTTSD2SQ	X0, SI
+	0x002c 00044 (benchmarks_test.go:32)	MOVQ	SI, "".s(SB)
+	0x0033 00051 (benchmarks_test.go:31)	INCQ	CX
+	0x0036 00054 (benchmarks_test.go:31)	MOVQ	240(AX), DX
+	0x003d 00061 (benchmarks_test.go:31)	CMPQ	CX, DX
+	0x0040 00064 (benchmarks_test.go:31)	JLT	9
+	0x0042 00066 (benchmarks_test.go:34)	RET
+# omitted content
 ```
 
 ### Exercise: benchmarks
