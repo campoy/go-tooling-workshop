@@ -76,6 +76,5 @@ You're now a master of performance! You're able to get any program and analyze
 it with benchmarks and pprof, generate graphs that provide a clear view of what
 the program is spending time on, and choose the best optimization.
 
-That's awesome!
-
-This is the end of the workshop, so now there's only [one more step](../../congratulations.md).
+That's awesome, but there's more! Let's see how you can have even a better view
+of what a Go program does with the [Go execution tracer](../4-tracing/1-tracing.md).
