@@ -302,6 +302,59 @@ type Person struct {
 }
 ```
 
+## `eg`
+
+`eg` is an example-based refactoring tool.
+To use it, you simply create a template file and then provide the paths you wish to refactor.
+`eg` is particulary useful for changing function or API usages.
+
+### Installing `eg`
+
+```bash
+$ go get golang.org/x/tools/cmd/eg
+$ ^get^build
+```
+
+### Writing a template
+
+Here's a simple template (`template.go`) to get you started.
+Templates need to be buildable Go files with `before` and `after` functions.
+
+```go
+package template
+
+import (
+	"errors"
+	"fmt"
+)
+
+func before(s string) error { return fmt.Errorf("%s", s) }
+func after(s string) error  { return errors.New(s) }
+```
+
+### Running `eg`
+
+```bash
+$ cat target.go 
+package main
+
+import "fmt"
+
+func main() { fmt.Printf("Error: %v", fmt.Errorf("%s", "Whoops!")) }
+$ eg -t template.go target.go 
+=== /usr/local/google/home/ljr/eg-test/target.go (1 matches)
+package main
+
+import (
+	"fmt"
+	"errors"
+)
+
+func main()	{ fmt.Printf("Error: %v", errors.New("Whoops!")) }
+```
+
+Add the `-w` flag to write the file(s) in place instead of the default dry-run.
+
 ## And more!
 
 New editing tools appear often, some of them have value to the general population
