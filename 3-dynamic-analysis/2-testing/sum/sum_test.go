@@ -27,14 +27,24 @@ func TestAll(t *testing.T) {
 		sum   int
 	}{
 		{
-			name:  "simple test with zero value",
+			name:  "with zero value",
 			input: []int{},
 			sum:   0,
 		},
 		{
-			name:  "simple test with three value",
+			name:  "with positive values",
 			input: []int{1, 2, 3},
 			sum:   6,
+		},
+		{
+			name:  "with negative varlues only",
+			input: []int{-1, -2, -3},
+			sum:   -6,
+		},
+		{
+			name:  "with mix of positive and negative",
+			input: []int{1, -2, 3},
+			sum:   2,
 		},
 	}
 
