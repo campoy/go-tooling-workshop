@@ -14,8 +14,36 @@
 
 package sum_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/campoy/go-tooling-workshop/3-dynamic-analysis/2-testing/sum"
+)
 
 func TestAll(t *testing.T) {
-	// Implement the body of this test, calling sum.All.
+	tests := []struct {
+		name  string
+		input []int
+		sum   int
+	}{
+		{
+			name:  "simple test with zero value",
+			input: []int{},
+			sum:   0,
+		},
+		{
+			name:  "simple test with three value",
+			input: []int{1, 2, 3},
+			sum:   6,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			if got, want := sum.All(tc.input...), tc.sum; got != want {
+				t.Fatalf("unexpected result:\n- want: %d\n-  got: %d\n",
+					want, got)
+			}
+		})
+	}
 }
