@@ -24,10 +24,10 @@ func TestIndex_Repeat(t *testing.T) {
 		t.Errorf(`"hello, world" should contain "hello" at position 0, not %d`, i)
 	}
 	if i := strings.Index("hello, world", "bye"); i != -1 {
-		t.Errorf(`"hello, world" should not contain "hello"`)
+		t.Errorf(`"hello, world" should not contain "bye"`)
 	}
 	if i := strings.Index("hello, world", "world"); i != 7 {
-		t.Errorf(`"hello, world" should contain "hello" at position 7, not %d`, i)
+		t.Errorf(`"hello, world" should contain "world" at position 7, not %d`, i)
 	}
 }
 
