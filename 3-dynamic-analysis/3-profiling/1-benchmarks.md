@@ -175,7 +175,7 @@ func BenchmarkDiv(b *testing.B) {
 }
 ```
 
-If we run the benchmark we will get a surpsiring result:
+If we run the benchmark we will get a surprising result:
 
 ```bash
 $ go test -bench=Div
@@ -188,7 +188,7 @@ This seems a bit too fast, even for a simple piece of code as the one we're benc
 We can see the generated code by adding `-gcflags "-S"`:
 
 ```bash
-$ go test benchmarks_test.go -bench=Div -gcflags "-S" 2>& out.text
+$ go test benchmarks_test.go -bench=Div -gcflags "-S" &> out.text
 goos: darwin
 goarch: amd64
 BenchmarkDiv-8          2000000000               0.28 ns/op
@@ -212,9 +212,6 @@ $ cat out.text
 # omitted content
 ```
 
-_NOTE_: In Mac, you might see two definitions of the same function. The second one is the one we care about.
-There's an [issue](https://github.com/golang/go/issues/20976) filed to fix this behavior.
-
 You don't need to understand the whole thing, but the point is that there's no function call 
 
 The problem here is that the function call to `div` has been inlined, and the inlined code
@@ -225,7 +222,7 @@ You can see when a function call is inlined by using `gcflag "-m"`. Try it.
 A possible fix to this would be to use the `noinline` pragma, to avoid having `div` inlined.
 This would fix the problem, but would alter the results of our performance analysis too.
 
-A better idea is tostore the result of the function call
+A better idea is to store the result of the function call
 in a package variable. This will force the compiler to keep the call.
 
 [embedmd]:# (benchmarks_test.go /var s/ $)
