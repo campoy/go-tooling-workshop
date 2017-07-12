@@ -14,21 +14,21 @@
 
 package profiling
 
-import (
-	"strings"
-	"testing"
-)
+import "testing"
 
-func BenchmarkFields(b *testing.B) {
+func div(a, b int) int {
+	return int(float64(a) / float64(b))
+}
+func BenchmarkDiv(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		strings.Fields("hello, dear friend")
+		div(2, 3)
 	}
 }
 
-var res []string
+var s int
 
-func BenchmarkFields_Escape(b *testing.B) {
+func BenchmarkDiv_Escape(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		res = strings.Fields("hello, dear friend")
+		s = div(2, 3)
 	}
 }
