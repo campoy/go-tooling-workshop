@@ -14,35 +14,14 @@
 
 package main
 
-import (
-	"fmt"
-	"os"
-	"runtime/trace"
-)
+import "testing"
 
-func main() {
-	trace.Start(os.Stdout)
-	defer trace.Stop()
+func BenchmarkPlayer(b *testing.B) {
+	table := make(chan int)
+	go player(table, "a")
 
-	const n = 3
-
-	leftmost := make(chan int)
-	right := leftmost
-	left := leftmost
-
-	for i := 0; i < n; i++ {
-		right = make(chan int)
-		go pass(left, right)
-		left = right
+	for i := 0; i < b.N; i++ {
+		table <- 0
+		<-table
 	}
-
-	go sendFirst(right)
-	fmt.Fprintln(os.Stderr, <-leftmost)
 }
-
-func pass(left, right chan int) {
-	v := 1 + <-right
-	left <- v
-}
-
-func sendFirst(ch chan int) { ch <- 0 }

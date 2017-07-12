@@ -225,16 +225,21 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 )
 
+// Person contains information about people.
 type Person struct {
 	Name string
 	Age  int
 }
 
 func main() {
-	json.NewEncoder(os.Stdout).Encode(Person{"Gopher", 6})
+	err := json.NewEncoder(os.Stdout).Encode(Person{"Gopher", 6})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 ```
 

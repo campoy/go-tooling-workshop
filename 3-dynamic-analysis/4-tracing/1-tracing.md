@@ -20,7 +20,7 @@ The awesome thing about the Go execution tracer is that it doesn't require
 to run for long, so we can start by understanding what a program does by
 simply adding calls to `trace.Start` and `trace.Stop`.
 
-[embedmd]:# (daisy.go /package main/ /trace.Stop/)
+[embedmd]:# (daisy/main.go /package main/ /trace.Stop/)
 ```go
 package main
 
@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	trace.Start(os.Stdout)
+	_ = trace.Start(os.Stdout)
 	defer trace.Stop
 ```
 
@@ -39,7 +39,7 @@ So, without reading anything else in the code, let's simply run the code and
 store the trace output.
 
 ```bash
-$ go run daisy.go > trace.out
+$ go run daisy/main.go > trace.out
 3
 $ go tool trace trace.out
 2017/07/10 17:47:47 Parsing trace...
@@ -48,7 +48,7 @@ $ go tool trace trace.out
 2017/07/10 17:47:47 Opening browser
 ```
 
-This will open a browser with a serious of links, let's click on `Goroutine
+This will open a browser with a series of links, let's click on `Goroutine
 analysis`, you should see something like this:
 
 ```
@@ -96,7 +96,7 @@ Wow! We were able to understand *many* things from the program even before
 we read a single line of code! But now it's time to read the code to be
 able to interpret better what's going on.
 
-[embedmd]:# (daisy.go /package main/ $)
+[embedmd]:# (daisy/main.go /package main/ $)
 ```go
 package main
 
@@ -107,7 +107,7 @@ import (
 )
 
 func main() {
-	trace.Start(os.Stdout)
+	_ = trace.Start(os.Stdout)
 	defer trace.Stop()
 
 	const n = 3
@@ -148,6 +148,61 @@ Spend some time navigating the graph of dependencies and try to see how each gor
 synchronizes with others via the channels.
 
 ![](flow-events.png)
+
+## Exercise: an mysterious trace
+
+Analyze this mysterious trace given on [mistery.trace](mistery.trace).
+What do you think it does? How many goroutines are there?
+
+Can you see any garbage collection going on?
+
+Once you're ready to discovery the misterious code click on `details`.
+
+<details>
+
+The misterious trace belongs to an execution of [ping-pong/main.go](ping-pong/main.go).
+
+[embedmd]:# (ping-pong/main.go /package main/ $)
+```go
+package main
+
+import (
+	"log"
+	"os"
+	"runtime/trace"
+	"time"
+)
+
+func main() {
+	_ = trace.Start(os.Stdout)
+	defer trace.Stop()
+
+	table := make(chan int)
+	go player(table, "ping")
+	go player(table, "pong")
+
+	table <- 0
+	time.Sleep(time.Second)
+	ball := <-table
+	close(table)
+	log.Printf("played %d turns", ball)
+
+	// runtime.GC()
+	// _ = pprof.WriteHeapProfile(os.Stdout)
+}
+
+func player(table chan int, name string) {
+	for ball := range table {
+		log.Printf("%d\t%s", ball, name)
+		table <- ball + 1
+	}
+}
+```
+
+That's an interesting program. If you feel like it, maybe it's worth using `pprof`
+to analyze where the memory is being allocated.
+
+</details>
 
 ## Exercise: explore your options
 
