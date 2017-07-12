@@ -50,7 +50,7 @@ You can see a little demo of what `vim-go` is able to do [here](http://quick.as/
 
 ## sourcegraph
 
-Navigating source code in your machine is important, but navigatint source code
+Navigating source code in your machine is important, but navigating source code
 that is public on the internet can also be essential. Fortunately there's a cool
 startup that is working on this problem. And guess what, they use a lot of Go!
 
