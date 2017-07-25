@@ -72,7 +72,7 @@ by using the suffix `_GOOS_GOARCH.go`, such as `foo_darwin_amd64.go`.
 ### Conditional compilation with build constraints
 
 Build constraints are more expressive than the file suffixes presented above.
-Rather than limiting the compilation to a single OS or arhictecture, here we can use
+Rather than limiting the compilation to a single OS or architecture, here we can use
 a large range of conditions.
 
 They appear as comments at the beginning of a `.go` file with the syntax:
