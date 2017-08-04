@@ -182,5 +182,4 @@ under `$GOPATH/src/github.com/campoy/go-tooling-workshop/2-building-artifacts/ex
 You're now an expert on ... basic compilation of Go programs. But you're already able
 to cross-compile Go programs to other platforms!
 
-Next, let's talk about how to better understand the behavior of running programs in
-the [dynamic analysis section](../3-dynamic-analysis/README.md).
+Next, let's see how to build docker images in [the next section](2-docker.md).
