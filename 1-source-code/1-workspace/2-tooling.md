@@ -278,7 +278,7 @@ Can you find any of those packages? Where are they used from?
 
 <details>
 
-There's many of these directories, on of them is `image/internal/imageutil`.
+There's many of these directories, one of them is `image/internal/imageutil`.
 
 ```
 package imageutil
