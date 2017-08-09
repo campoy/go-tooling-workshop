@@ -9,19 +9,21 @@ Using golang image to build binaries can be useful for :
 - Local development
 
 ### Continuous integration
-When using a CI server like Jenkins, it can become cumbersome to have to install all the go versions required by your different projects. And even more if you use your CI server to build projects in other languages, each with its own version (java8, java7, node, ruby, python, ...). For this use case, it can be easier to build the projects in docker containers. An example script could be :
-```
- docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project golang:1.8.1 go build -o dist/binary
+When using a CI server like Jenkins, it can become cumbersome to have to install all the go versions required by your different projects.
+And even more if you use your CI server to build projects in other languages, each with its own version (java8, java7, node, ruby, python, ...).
+For this use case, it can be easier to build the projects in docker containers. An example script could be :
+```bash
+ $ docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project golang:1.8.1 go build
 ```
 This will run the `go build` command with go version 1.8.1, sharing your current directory with the container. Obviously, you can run `go fmt/vet/test/...` commands the same way
 
 ### Cross building binary
 Usually, cross building a binary requires to install go from sources. Using the golang image, you can install the binary distribution on your computer for day-to-day use and rely on the docker image to build binaries for different targets.
 As seen on previous section, cross compiling binaries is only a matter of environment variables. So, an example command could be :
-```
- docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=windows -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-windows.exe
- docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=linux -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-linux-x64
- docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=darwin -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-darwin
+```bash
+ $ docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=windows -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-windows.exe
+ $ docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=linux -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-linux-x64
+ $ docker run --rm -v $PWD:/go/src/github.com/repo/project -w /go/src/github.com/repo/project -e GOOS=darwin -e GOARCH=amd64 golang:1.8.1 go build -o dist/binary-darwin
 ```
 
 ### Local development
