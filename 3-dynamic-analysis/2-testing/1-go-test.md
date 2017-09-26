@@ -98,7 +98,11 @@ is to define a `sum_test` package:
 ```go
 package sum_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/campoy/go-tooling-workshop/3-dynamic-analysis/2-testing/sum"
+)
 
 func TestAll(t *testing.T) {
 	// Implement the body of this test, calling sum.All.
