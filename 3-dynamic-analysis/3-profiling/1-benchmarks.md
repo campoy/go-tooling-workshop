@@ -217,7 +217,7 @@ You don't need to understand the whole thing, but the point is that there's no f
 The problem here is that the function call to `div` has been inlined, and the inlined code
 has been deleted as it can be proven that its result is never used.
 
-You can see when a function call is inlined by using `gcflag "-m"`. Try it.
+You can see when a function call is inlined by using `-gcflags "-m"`. Try it.
 
 A possible fix to this would be to use the `noinline` pragma, to avoid having `div` inlined.
 This would fix the problem, but would alter the results of our performance analysis too.
