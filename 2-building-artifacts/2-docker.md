@@ -43,7 +43,7 @@ CMD ./mybinary
 ```
 
 ### FROM scratch
-`scratch` is a special keyword to tell docker to build an image from "nothing'. So the resulting image will only contain the files and directories you explicitly add. As go binaries don't require anything to run, you can be tempted to build your image from scratch instead of alpine, this will produce an image as small as your binary. There are just a few tricks you should be aware of :
+`scratch` is a special keyword to tell docker to build an image from "nothing". So the resulting image will only contain the files and directories you explicitly add. As go binaries don't require anything to run, you can be tempted to build your image from scratch instead of alpine, this will produce an image as small as your binary. There are just a few tricks you should be aware of :
 - To have a true autonomous binary that don't rely on any linux libray, your must build your binary with `CGO_ENABLED=0` flag and ` -installsuffix cgo` option
 - If your application needs to make HTTPS calls, you need to add an up-to-date `/etc/ssl/certs/ca-certificates.crt` file in your container so your application can validate https certs.
 
