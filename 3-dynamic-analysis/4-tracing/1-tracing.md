@@ -25,14 +25,14 @@ simply adding calls to `trace.Start` and `trace.Stop`.
 package main
 
 import (
-	"fmt"
 	"os"
 	"runtime/trace"
 )
 
 func main() {
 	_ = trace.Start(os.Stdout)
-	defer trace.Stop
+	defer trace.Stop()
+}
 ```
 
 So, without reading anything else in the code, let's simply run the code and
