@@ -311,8 +311,7 @@ To use it, you simply create a template file and then provide the paths you wish
 ### Installing `eg`
 
 ```bash
-$ go get golang.org/x/tools/cmd/eg
-$ ^get^build
+$ go install golang.org/x/tools/cmd/eg
 ```
 
 ### Writing a template
@@ -320,6 +319,7 @@ $ ^get^build
 Here's a simple template (`template.go`) to get you started.
 Templates need to be buildable Go files with `before` and `after` functions.
 
+[embedmd]:# (eg-content/template.go)
 ```go
 package template
 
@@ -334,23 +334,38 @@ func after(s string) error  { return errors.New(s) }
 
 ### Running `eg`
 
-```bash
-$ cat target.go 
+We have a file called `target.go` with the following contents:
+
+[embedmd]:# (eg-content/target.go)
+```go
 package main
 
 import "fmt"
 
 func main() { fmt.Printf("Error: %v", fmt.Errorf("%s", "Whoops!")) }
-$ eg -t template.go target.go 
-=== /usr/local/google/home/ljr/eg-test/target.go (1 matches)
+```
+
+We can use `eg` to create the refactoring of `target.go` using `template.go`.
+In the command, we use the `-t` flag to denote the template filename.
+
+```bash
+# output the refactored target.go to result.go
+$ eg -t template.go target.go > result.go
+=== .../target.go (1 matches)
+```
+
+And voila, `result.go`:
+
+[embedmd]:# (eg-content/result.go)
+```go
 package main
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 )
 
-func main()	{ fmt.Printf("Error: %v", errors.New("Whoops!")) }
+func main() { fmt.Printf("Error: %v", errors.New("Whoops!")) }
 ```
 
 Add the `-w` flag to write the file(s) in place instead of the default dry-run.
