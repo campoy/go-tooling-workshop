@@ -20,7 +20,7 @@ The awesome thing about the Go execution tracer is that it doesn't require
 to run for long, so we can start by understanding what a program does by
 simply adding calls to `trace.Start` and `trace.Stop`.
 
-[embedmd]:# (daisy/main.go /package main/ /trace.Stop/)
+[embedmd]:# (daisy/main.go /package main/ /trace.Stop.*/)
 ```go
 package main
 
