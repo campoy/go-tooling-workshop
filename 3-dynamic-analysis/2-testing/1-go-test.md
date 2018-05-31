@@ -121,9 +121,9 @@ Run `go test` once you've written them.
 Very often you will find yourself writing repetitive tests, let's imagine that you
 were writing a test for `strings.Index`, you might end up writing something like:
 
-[embedmd]:# (strings_test.go /TestIndex_Repeat/ /^}/)
+[embedmd]:# (strings_test.go /func TestIndex_Repeat/ /^}/)
 ```go
-TestIndex_Repeat(t *testing.T) {
+func TestIndex_Repeat(t *testing.T) {
 	if i := strings.Index("hello, world", "hello"); i != 0 {
 		t.Errorf(`"hello, world" should contain "hello" at position 0, not %d`, i)
 	}
@@ -143,9 +143,9 @@ In Go, it is recommended to use what we call a table drive test. Rather than rep
 the code, we keep all the commonalities across all the repetitions and extract the
 differences into a slice of test cases. The previous example would be something like:
 
-[embedmd]:# (strings_test.go /TestIndex_Table/ /^}/)
+[embedmd]:# (strings_test.go /func TestIndex_Table/ /^}/)
 ```go
-TestIndex_Table(t *testing.T) {
+func TestIndex_Table(t *testing.T) {
 	tt := []struct {
 		text string
 		sub  string
@@ -171,9 +171,9 @@ Even better, since Go 1.7, we can use subtests, which allow you to have a better
 test cases inside of a test you run. You need to give a name to your test case, which is a good
 practice anyway, and call `t.Run`.
 
-[embedmd]:# (strings_test.go /TestIndex_Subtest/ /^}/)
+[embedmd]:# (strings_test.go /func TestIndex_Subtest/ /^}/)
 ```go
-TestIndex_Subtest(t *testing.T) {
+func TestIndex_Subtest(t *testing.T) {
 	tt := []struct {
 		name string
 		text string
