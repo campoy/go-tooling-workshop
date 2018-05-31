@@ -5,4 +5,12 @@ import (
 	"fmt"
 )
 
-func main() { fmt.Printf("Error: %v", errors.New("Whoops!")) }
+func main() {
+	if err := run(); err != nil {
+		fmt.Printf("could not run: %v", err)
+	}
+}
+
+func run() error {
+	return errors.New("didn't want to run")
+}
