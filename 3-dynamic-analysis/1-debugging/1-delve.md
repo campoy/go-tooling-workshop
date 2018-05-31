@@ -8,7 +8,7 @@ Luckily, the Go community provided a new debugger called [delve](https://github.
 If you haven't installed it yet, please follow [these instructions](https://github.com/derekparker/delve/tree/master/Documentation/installation)
 before continuing.
 
-We will debug the web server implemented in [this directory](../webserver).
+We will debug the web server implemented in the [webserver](../webserver) directory under `3-dynamic-analysis`.
 It's a very simple web server that checks the path of the HTTP request and it
 prints `hello, foo` if the path was something like `localhost:8080/foo@golang.org`,
 and `hello, stranger` otherwise.
