@@ -90,15 +90,15 @@ On top of the basic `go get` usage that we saw above, there's some flags that mi
 If you run `go get` with an import path that doesn't contain any Go code, you will see an error:
 
 ```bash
-$ go get github.com/campoy/go-web-workshop
-can't load package: package github.com/campoy/go-web-workshop: no buildable Go source files in /Users/campoy/src/github.com/campoy/go-web-workshop
+$ go get github.com/campoy/go-tooling-workshop
+can't load package: package github.com/campoy/go-tooling-workshop: no buildable Go source files in /Users/campoy/src/github.com/campoy/go-tooling-workshop
 ```
 
 In this case it is because the Go code is in directories under that root. You can request to
 install all packages under that import path by adding three trailing dots `...`.
 
 ```bash
-$ go get github.com/campoy/go-web-workshop/...
+$ go get github.com/campoy/go-tooling-workshop/...
 ```
 
 This works with all Go tools, it might be handy for testing too.
