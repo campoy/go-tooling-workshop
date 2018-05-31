@@ -39,9 +39,11 @@ In addition to the benchmark output, two new files were created.
 Once we have the test binary and the pprof profile, we can use the `pprof`
 tool under `go tool` to analyze the profile:
 
+_Note:_ on older versions of Go you will need to provide the test binary `3-profiling.test` as first argument to `go tool pprof`.
+
 ```bash
-$ go tool pprof 3-profiling.test cpu.pprof
-File: 3-profiling.test
+$ go tool pprof cpu.pprof
+Main binary filename not available.
 Type: cpu
 Time: Jun 29, 2017 at 3:30pm (EDT)
 Duration: 5.03s, Total samples = 4.31s (85.70%)
@@ -109,8 +111,8 @@ Failed to execute dot. Is Graphviz installed? Error: exec: "dot": executable fil
 Oh, it seems we're missing something! Make sure you installed [Graphviz](http://www.graphviz.org/) first.
 
 ```bash
-$ go tool pprof 3-profiling.test cpu.pprof
-File: 3-profiling.test
+$ go tool pprof cpu.pprof
+Main binary filename not available.
 Type: cpu
 Time: Jun 29, 2017 at 3:30pm (EDT)
 Duration: 5.03s, Total samples = 4.31s (85.70%)
