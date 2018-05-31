@@ -338,7 +338,6 @@ We have a file called `main.go` with the following contents:
 
 [embedmd]:# (eg-content/main.go)
 ```go
-//build: omit
 package main
 
 import "fmt"
@@ -367,7 +366,6 @@ And voila, `result/main.go`:
 
 [embedmd]:# (eg-content/result/main.go)
 ```go
-//build: omit
 package main
 
 import (

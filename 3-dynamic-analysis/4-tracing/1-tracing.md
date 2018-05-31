@@ -25,7 +25,7 @@ simply adding calls to `trace.Start` and `trace.Stop`.
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"runtime/trace"
 )
@@ -101,7 +101,7 @@ able to interpret better what's going on.
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"runtime/trace"
 )
@@ -123,7 +123,7 @@ func main() {
 	}
 
 	go sendFirst(right)
-	fmt.Fprintln(os.Stderr, <-leftmost)
+	log.Println(<-leftmost)
 }
 
 func pass(left, right chan int) {

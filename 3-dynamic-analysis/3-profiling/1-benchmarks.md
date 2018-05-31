@@ -24,15 +24,18 @@ import (
 func main() {
 	http.HandleFunc("/", handler)
 	log.Printf("listening on localhost:8080")
-	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	msg := "hello, stranger"
 	if name, ok := isGopher(r.URL.Path[1:]); ok {
-		fmt.Fprintf(w, "hello, %s", name)
-		return
+		msg = "hello, " + name
 	}
-	fmt.Fprintln(w, "hello, stranger")
+	_, err := fmt.Fprintln(w, msg)
+	if err != nil {
+		log.Printf("could not print message: %v", err)
+	}
 }
 
 func isGopher(email string) (string, bool) {
