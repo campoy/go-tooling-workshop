@@ -357,8 +357,8 @@ We can use `eg` to create the refactoring of `main.go` using `template.go`.
 In the command, we use the `-t` flag to denote the template filename.
 
 ```bash
-# output the refactored target.go to result.go
-$ eg -t template.go target.go > result.go
+# output the refactored target.go to result/main.go
+$ eg -t template.go target.go > result/main.go
 === .../target.go (1 matches)
 ```
 
