@@ -212,16 +212,37 @@ how to do so [here](https://github.com/Microsoft/vscode-go#linter).
 
 Slow linters can be instead run as part of a continuous integration check.
 
+## megacheck and more
+
+For additional checks I also recommend `megacheck` which you can find in the
+[go-tools](https://github.com/dominikh/go-tools) by Dominik Honnef.
+
+| Tool                                               | Description                                                      |
+|----------------------------------------------------|------------------------------------------------------------------|
+| [gosimple](cmd/gosimple/)                          | Detects code that could be rewritten in a simpler way.           |
+| [keyify](cmd/keyify/)                              | Transforms an unkeyed struct literal into a keyed one.           |
+| [rdeps](cmd/rdeps/)                                | Find all reverse dependencies of a set of packages               |
+| [staticcheck](cmd/staticcheck/)                    | Detects a myriad of bugs and inefficiencies in your code.        |
+| [structlayout](cmd/structlayout/)                  | Displays the layout (field sizes and padding) of structs.        |
+| [structlayout-optimize](cmd/structlayout-optimize) | Reorders struct fields to minimize the amount of padding.        |
+| [structlayout-pretty](cmd/structlayout-pretty)     | Formats the output of structlayout with ASCII art.               |
+| [unused](cmd/unused/)                              | Reports unused identifiers (types, functions, ...) in your code. |
+|                                                    |                                                                  |
+| [megacheck](cmd/megacheck)                         | Run staticcheck, gosimple and unused in one go                   |
+
 ## Continuous Integration and code checkers
 
 It is a good practice to add checks to make sure that any code causing `go vet`
 or `golint` doesn't build, specially if you're using tools like Travis CI,
 Jenkins, and others.
 
+See this repository's [.travis.yml](../../.travis.yml) for a real example.
+
 If you think these tools are useful, you should definitely check out
 [goreportcard](https://goreportcard.com/) which allows you to run a
 bunch of these checkers as part of your GitHub flow. This workshop uses it
 to make sure there's no typos!
+
 
 ## Congratulations
 
