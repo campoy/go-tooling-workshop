@@ -35,13 +35,13 @@ You can now run `dep` from inside a package in your `GOPATH` to vendor all its d
 
 ```bash
 $ dep init
-$ dep ensure -update
+$ dep ensure
 ```
 
-To update a dependency to a new version, you might run
+To update a dependency to a new version, you might update `Gopkg.toml` and run:
 
 ```bash
-$ dep ensure github.com/pkg/errors@^0.8.0
+$ dep ensure
 ```
 
 ### Exercise: managing dependencies
@@ -57,10 +57,10 @@ Running this will create:
 You should never edit `vendor` or `Gopkg.lock` directly, instead you should edit `Gopkg.toml`
 and use the `dep` binary.
 
-Let's ensure that we are using the version 1.0.0 of `logrus` in our `vendor` directory. Simply run:
+Let's ensure that we are using the version 1.0.0 of `logrus` in our `vendor` directory. Simply change the stanza in `Gopkg.toml` and run:
 
 ```bash
-$ dep ensure github.com/Sirupsen/logrus@1.0.0
+$ dep ensure
 ```
 
 Did you see any changes in any of the files mentioned above? Try using a different version of `logrus` from
