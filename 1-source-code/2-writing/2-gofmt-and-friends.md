@@ -342,7 +342,15 @@ package main
 
 import "fmt"
 
-func main() { fmt.Printf("Error: %v", fmt.Errorf("%s", "Whoops!")) }
+func main() {
+	if err := run(); err != nil {
+		fmt.Printf("could not run: %v", err)
+	}
+}
+
+func run() error {
+	return fmt.Errorf("%s", "didn't want to run")
+}
 ```
 
 We can use `eg` to create the refactoring of `target.go` using `template.go`.
@@ -365,7 +373,15 @@ import (
 	"fmt"
 )
 
-func main() { fmt.Printf("Error: %v", errors.New("Whoops!")) }
+func main() {
+	if err := run(); err != nil {
+		fmt.Printf("could not run: %v", err)
+	}
+}
+
+func run() error {
+	return errors.New("didn't want to run")
+}
 ```
 
 Add the `-w` flag to write the file(s) in place instead of the default dry-run.
