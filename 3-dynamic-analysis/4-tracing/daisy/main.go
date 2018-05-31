@@ -15,7 +15,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"runtime/trace"
 )
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	go sendFirst(right)
-	fmt.Fprintln(os.Stderr, <-leftmost)
+	log.Println(<-leftmost)
 }
 
 func pass(left, right chan int) {

@@ -28,11 +28,14 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	msg := "hello, stranger"
 	if name, ok := isGopher(r.URL.Path[1:]); ok {
-		fmt.Fprintf(w, "hello, %s", name)
-		return
+		msg = "hello, " + name
 	}
-	fmt.Fprintln(w, "hello, stranger")
+	_, err := fmt.Fprintln(w, msg)
+	if err != nil {
+		log.Printf("could not print message: %v", err)
+	}
 }
 
 func isGopher(email string) (string, bool) {
