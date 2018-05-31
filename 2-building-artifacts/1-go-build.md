@@ -8,7 +8,7 @@ For this section we will use a different one that gives us more control on what 
 exactly we compile: `go build`.
 
 Let's start by opening a terminal window in the directory named
-[web-server](web-server) under `2-building-artifacts/1-standalone-binares` and run:
+[web-server](web-server) under `2-building-artifacts` and run:
 
 ```bash
 $ go build
