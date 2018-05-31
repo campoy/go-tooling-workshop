@@ -321,7 +321,7 @@ Templates need to be buildable Go files with `before` and `after` functions.
 
 [embedmd]:# (eg-content/template.go)
 ```go
-package template
+package main
 
 import (
 	"errors"
@@ -334,10 +334,11 @@ func after(s string) error  { return errors.New(s) }
 
 ### Running `eg`
 
-We have a file called `target.go` with the following contents:
+We have a file called `main.go` with the following contents:
 
-[embedmd]:# (eg-content/target.go)
+[embedmd]:# (eg-content/main.go)
 ```go
+//build: omit
 package main
 
 import "fmt"
@@ -353,7 +354,7 @@ func run() error {
 }
 ```
 
-We can use `eg` to create the refactoring of `target.go` using `template.go`.
+We can use `eg` to create the refactoring of `main.go` using `template.go`.
 In the command, we use the `-t` flag to denote the template filename.
 
 ```bash
@@ -362,10 +363,11 @@ $ eg -t template.go target.go > result.go
 === .../target.go (1 matches)
 ```
 
-And voila, `result.go`:
+And voila, `result/main.go`:
 
-[embedmd]:# (eg-content/result.go)
+[embedmd]:# (eg-content/result/main.go)
 ```go
+//build: omit
 package main
 
 import (
