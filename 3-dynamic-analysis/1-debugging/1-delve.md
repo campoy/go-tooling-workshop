@@ -64,15 +64,15 @@ the execution and show you where it stopped.
 > main.handler() ./main.go:29 (hits goroutine(6):1 total:1) (PC: 0x1226d88)
     24: func main() {
     25:         http.HandleFunc("/", handler)
-    26:         log.Fatal(http.ListenAndServe("localhost:8080", nil))
+    26:         log.Fatal(http.ListenAndServe(":8080", nil))
     27: }
     28:
 =>  29: func handler(w http.ResponseWriter, r *http.Request) {
     30:         re := regexp.MustCompile("^([[:alpha:]]+)@golang.org$")
     31:         match := re.FindStringSubmatch(r.URL.Path)
-    32:         if len(match) == 1 {
-    33:                 fmt.Fprintf(w, "hello, %s", match[1])
-    34:                 return
+    32:         msg := "hello, stranger"
+    33:         if len(match) == 1 {
+    34:                 msg = "hello, " + match[1]
 ```
 
 Great, it's on line 29 right at the beginning of the `handler` function.
