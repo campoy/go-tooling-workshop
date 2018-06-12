@@ -14,14 +14,16 @@
 
 package profiling
 
-import "testing"
+import (
+	"testing"
+)
 
 func div(a, b int) int {
 	return int(float64(a) / float64(b))
 }
-func BenchmarkDiv(b *testing.B) {
+func BenchmarkDiv_Basic(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		div(2, 3)
+		div(126, 3)
 	}
 }
 
@@ -29,6 +31,14 @@ var s int
 
 func BenchmarkDiv_Escape(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		s = div(2, 3)
+		s = div(126, 3)
+	}
+}
+
+var r = 3
+
+func BenchmarkDiv_SSA(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s = div(126, r)
 	}
 }
