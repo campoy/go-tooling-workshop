@@ -4,7 +4,7 @@ In order to better understand how a program performs we can use a similar
 approach to the one we used with code coverage, back in the
 [testing chapter](../2-testing/2-code-coverage.md).
 
-The idea here is we will periodicallly check what a program is running,
+The idea here is we will periodically check what a program is running,
 exactly what line of code it's executing at that given time. By doing this
 often enough and for a long enough period of time, we can figure out what lines
 of code we spend the longest time executing!
@@ -20,18 +20,17 @@ The easiest way to use pprof is by adding the `-cpuprofile` flag to any benchmar
 Let's add that flag to the same benchmark for `strings.Fields` we saw before.
 
 ```bash
-$ go test -bench=. -cpuprofile=cpu.pprof
+$ go test -bench=Div_SSA -cpuprofile=cpu.pb.gz
 goos: darwin
 goarch: amd64
 pkg: github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling
-BenchmarkFields-8               20000000               118 ns/op
-BenchmarkFields_Escape-8        20000000               112 ns/op
+BenchmarkDiv_SSA-4      300000000                4.20 ns/op
 PASS
-ok      github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling    5.051s
+ok      github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling    1.823s
 ```
 
 In addition to the benchmark output, two new files were created.
-- cpu.pprof:  It is a binary file, so no need to try to read it manually. Instead, we're going to use the `pprof` tool to read it.
+- cpu.pb.gz:  It is a compressed protocol buffer file, so no need to try to read it manually. Instead, we're going to use the `pprof` tool to read it.
 - x.test: where x corresponds to the name of the current directory. It's the test binary that runs the benchmarks.
 
 ## Reading pprof profiles with `go tool pprof`
@@ -42,7 +41,7 @@ tool under `go tool` to analyze the profile:
 _Note:_ on older versions of Go you will need to provide the test binary `3-profiling.test` as first argument to `go tool pprof`.
 
 ```bash
-$ go tool pprof cpu.pprof
+$ go tool pprof cpu.pb.gz
 Main binary filename not available.
 Type: cpu
 Time: Jun 29, 2017 at 3:30pm (EDT)
@@ -111,7 +110,7 @@ Failed to execute dot. Is Graphviz installed? Error: exec: "dot": executable fil
 Oh, it seems we're missing something! Make sure you installed [Graphviz](http://www.graphviz.org/) first.
 
 ```bash
-$ go tool pprof cpu.pprof
+$ go tool pprof cpu.pb.gz
 Main binary filename not available.
 Type: cpu
 Time: Jun 29, 2017 at 3:30pm (EDT)
@@ -235,7 +234,7 @@ Showing nodes accounting for 0, 0% of 0 total
       flat  flat%   sum%        cum   cum%
 ```
 
-0% is not a huge percent ... what hapenned? Well, during the time we were analyzing
+0% is not a huge percent ... what happened? Well, during the time we were analyzing
 the server there was no traffic, so nothing got recorded.
 
 Let's try again, this time sending some traffic with `go-wrk` first, then starting

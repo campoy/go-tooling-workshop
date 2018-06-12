@@ -47,8 +47,8 @@ the result of running a benchmark with `-cpuprofile`. It's also very simple,
 simply run:
 
 ```bash
-$ go-torch --binaryname binary.test -b pprof.cpu
-INFO[23:10:47] Run pprof command: go tool pprof -raw binary.test pprof.cpu
+$ go-torch --binaryname binary.test -b cpu.pb.gz
+INFO[23:10:47] Run pprof command: go tool pprof -raw binary.test cpu.pb.gz
 INFO[23:10:52] Writing svg to torch.svg
 ```
 

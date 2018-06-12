@@ -55,7 +55,7 @@ is to call it and track the time it takes to finish. It is not a perfect
 measure, but it is a useful one to start with.
 
 In the case of a program that runs for a limited time (unlike servers, which
-run indefintely) I recommend using the `time` command.
+run indefinitely) I recommend using the `time` command.
 
 ```bash
 $ go get github.com/golang/example/hello
@@ -171,9 +171,9 @@ For instance, let's see this code:
 func div(a, b int) int {
 	return int(float64(a) / float64(b))
 }
-func BenchmarkDiv(b *testing.B) {
+func BenchmarkDiv_Basic(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		div(2, 3)
+		div(126, 3)
 	}
 }
 ```
@@ -181,17 +181,20 @@ func BenchmarkDiv(b *testing.B) {
 If we run the benchmark we will get a surprising result:
 
 ```bash
-$ go test -bench=Div
-BenchmarkDiv-8   	2000000000	         0.28 ns/op
+$ go test -bench=Div_Basic
+goos: darwin
+goarch: amd64
+pkg: github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling
+BenchmarkDiv_Basic-4    2000000000               0.30 ns/op
 PASS
-ok  	github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling	0.603s
+ok      github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling    0.638s
 ```
 
 This seems a bit too fast, even for a simple piece of code as the one we're benchmarking.
 We can see the generated code by adding `-gcflags "-S"`:
 
 ```bash
-$ go test benchmarks_test.go -bench=Div -gcflags "-S" &> out.text
+$ go test benchmarks_test.go -bench=Div_Basic -gcflags "-S" &> out.text
 goos: darwin
 goarch: amd64
 BenchmarkDiv-8          2000000000               0.28 ns/op
@@ -201,17 +204,17 @@ ok      command-line-arguments  0.612s
 $ cat out.text
 # omitted content
 "".BenchmarkDiv STEXT nosplit size=25 args=0x8 locals=0x0
-	0x0000 00000 (benchmarks_test.go:23)	TEXT	"".BenchmarkDiv(SB), NOSPLIT, $0-8
-	0x0000 00000 (benchmarks_test.go:23)	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
-	0x0000 00000 (benchmarks_test.go:23)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
-	0x0000 00000 (benchmarks_test.go:23)	MOVQ	"".b+8(SP), AX
-	0x0005 00005 (benchmarks_test.go:23)	MOVL	$0, CX
-	0x0007 00007 (benchmarks_test.go:24)	JMP	12
-	0x0009 00009 (benchmarks_test.go:24)	INCQ	CX
-	0x000c 00012 (benchmarks_test.go:24)	MOVQ	240(AX), DX
-	0x0013 00019 (benchmarks_test.go:24)	CMPQ	CX, DX
-	0x0016 00022 (benchmarks_test.go:24)	JLT	9
-	0x0018 00024 (benchmarks_test.go:27)	RET
+	TEXT	"".BenchmarkDiv(SB), NOSPLIT, $0-8
+	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
+	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	MOVQ	"".b+8(SP), AX
+	MOVL	$0, CX
+	JMP	12
+	INCQ	CX
+	MOVQ	240(AX), DX
+	CMPQ	CX, DX
+	JLT	9
+	RET
 # omitted content
 ```
 
@@ -228,13 +231,13 @@ This would fix the problem, but would alter the results of our performance analy
 A better idea is to store the result of the function call
 in a package variable. This will force the compiler to keep the call.
 
-[embedmd]:# (benchmarks_test.go /var s/ $)
+[embedmd]:# (benchmarks_test.go /var s/ /^}/)
 ```go
 var s int
 
 func BenchmarkDiv_Escape(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		s = div(2, 3)
+		s = div(126, 3)
 	}
 }
 ```
@@ -243,7 +246,7 @@ The generated assembly will now contain a division instruction `DIVSD` showing t
 function was inlined but the code is still there.
 
 ```bash
-$ go test benchmarks_test.go -bench=Div_Escape -gcflags "-S" 2>& out.text
+$ go test benchmarks_test.go -bench=Div_Escape -gcflags "-S" >& out.text
 goos: darwin
 goarch: amd64
 BenchmarkDiv_Escape-8           500000000                3.75 ns/op
@@ -252,29 +255,78 @@ ok      command-line-arguments  2.277s
 
 $ cat out.text
 # omitted content
-"".BenchmarkDiv_Escape STEXT nosplit size=67 args=0x8 locals=0x0
-	0x0000 00000 (benchmarks_test.go:30)	TEXT	"".BenchmarkDiv_Escape(SB), NOSPLIT, $0-8
-	0x0000 00000 (benchmarks_test.go:30)	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
-	0x0000 00000 (benchmarks_test.go:30)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
-	0x0000 00000 (benchmarks_test.go:30)	MOVQ	"".b+8(SP), AX
-	0x0005 00005 (benchmarks_test.go:30)	MOVL	$0, CX
-	0x0007 00007 (benchmarks_test.go:31)	JMP	54
-	0x0009 00009 (benchmarks_test.go:32)	MOVL	$2, DX
-	0x000e 00014 (benchmarks_test.go:32)	XORPS	X0, X0
-	0x0011 00017 (benchmarks_test.go:32)	CVTSQ2SD	DX, X0
-	0x0016 00022 (benchmarks_test.go:32)	MOVL	$3, BX
-	0x001b 00027 (benchmarks_test.go:32)	XORPS	X1, X1
-	0x001e 00030 (benchmarks_test.go:32)	CVTSQ2SD	BX, X1
-	0x0023 00035 (benchmarks_test.go:32)	DIVSD	X1, X0					# a division
-	0x0027 00039 (benchmarks_test.go:32)	CVTTSD2SQ	X0, SI
-	0x002c 00044 (benchmarks_test.go:32)	MOVQ	SI, "".s(SB)
-	0x0033 00051 (benchmarks_test.go:31)	INCQ	CX
-	0x0036 00054 (benchmarks_test.go:31)	MOVQ	240(AX), DX
-	0x003d 00061 (benchmarks_test.go:31)	CMPQ	CX, DX
-	0x0040 00064 (benchmarks_test.go:31)	JLT	9
-	0x0042 00066 (benchmarks_test.go:34)	RET
+"".BenchmarkDiv_Escape STEXT nosplit size=36 args=0x8 locals=0x0
+	TEXT	"".BenchmarkDiv_Escape(SB), NOSPLIT, $0-8
+	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
+	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	MOVQ	"".b+8(SP), AX
+	XORL	CX, CX
+	JMP	23
+	MOVQ	$42, "".s(SB)
+	INCQ	CX
+	MOVQ	240(AX), DX
+	CMPQ	CX, DX
+	JLT	9
+	0x0023 00035 (<unknown line number>)	RET
+	0x0000 48 8b 44 24 08 31 c9 eb 0e 48 c7 05 00 00 00 00  H.D$.1...H......
+	0x0010 2a 00 00 00 48 ff c1 48 8b 90 f0 00 00 00 48 39  *...H..H......H9
+	0x0020 d1 7c e6 c3                                      .|..
+	rel 12+4 t=15 "".s+-4
 # omitted content
 ```
+
+Wait, what happened there! It turns out the compiler is able to figure out that
+the result of calling `div(126, 3)` will always be 42, and since there's no other
+side effects it can simply remove the call and replace it with `MOVQ $42, "".s(SB)`.
+
+How would you fix this problem? Well, let's try passing a variable instead of just
+constants.
+
+[embedmd]:# (benchmarks_test.go /var r/ /^}/)
+```go
+var r = 3
+
+func BenchmarkDiv_SSA(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s = div(126, r)
+	}
+}
+```
+
+The generated code now will *actually* make a division!
+
+```bash
+$ go test benchmarks_test.go -bench=Div_SSA -gcflags "-S" >& out.text
+goos: darwin
+goarch: amd64
+BenchmarkDiv_SSA-4      2000000000               1.15 ns/op
+PASS
+ok      command-line-arguments  2.419s
+
+$ cat out.text
+# omitted content
+"".BenchmarkDiv_SSA STEXT nosplit size=64 args=0x8 locals=0x0
+	TEXT	"".BenchmarkDiv_SSA(SB), NOSPLIT, $0-8
+	FUNCDATA	$0, gclocals·a36216b97439c93dafebe03e7f0808b5(SB)
+	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	MOVQ	"".b+8(SP), AX
+	XORL	CX, CX
+	JMP	51
+	MOVQ	"".r(SB), DX
+	XORPS	X0, X0
+	CVTSQ2SD	DX, X0
+	MOVSD	$f64.405f800000000000(SB), X1
+	DIVSD	X0, X1
+	CVTTSD2SQ	X1, DX
+	MOVQ	DX, "".s(SB)
+	INCQ	CX
+	MOVQ	240(AX), DX
+	CMPQ	CX, DX
+	JLT	9
+# omitted content
+```
+
+Find the `DIVSD` instruction in the code, also notice the difference in time.
 
 ### Exercise: benchmarks
 
