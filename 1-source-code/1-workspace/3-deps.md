@@ -63,6 +63,9 @@ Let's ensure that we are using the version 1.0.0 of `logrus` in our `vendor` dir
 $ dep ensure
 ```
 
+_Note_: You will need to use a `=` before the version number in `Gopkg.toml`
+in order to ensure you're using that version and not a more recent one.
+
 Did you see any changes in any of the files mentioned above? Try using a different version of `logrus` from
 [this list](https://github.com/sirupsen/logrus/releases).
 
