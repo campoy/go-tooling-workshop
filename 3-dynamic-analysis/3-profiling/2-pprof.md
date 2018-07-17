@@ -126,6 +126,36 @@ so your `.svg` files are opened with something that works.
 
 We can see that most of the time is spent creating a slice `runtime.makeslice`.
 
+### Using the github.com/google/pprof
+
+Recently a lot of great improvements to `pprof` have been
+brought to the official Google project `github.com/google/pprof`.
+
+This is why I recommend using it rather than the one shipped with
+the Go tool. To install it simply run:
+
+```bash
+$ go get github.com/google/pprof
+```
+
+Then you can invoke it by simply dropping `go tool` from the previous
+commands.
+
+```bash
+$ pprof cpu.pb.gz
+```
+
+This will warn about the missing binary, but do not worry since Go
+`pprof` profiles contain enough information in them so the binaries
+are not really necessary.
+
+My favorite addition to `pprof` is how you can visualize all of the
+results by running it in server mode:
+
+```bash
+$ pprof -http=:6060 cpu.pb.gz
+```
+
 ### Exercise: visualizing the result of pprof on `isGopher`
 
 Using the same benchmark you wrote on the previous chapter, run it again with
@@ -165,10 +195,10 @@ PASS
 ok      github.com/campoy/go-tooling-workshop/3-dynamic-analysis/3-profiling/webserver  2.107s
 ```
 
-Finally, using `go tool pprof` you can visualize the analysis as a graph.
+Finally, using `pprof` you can visualize the analysis as a graph.
 
 ```bash
-$ go tool pprof webserver.test pprof.cpu
+$ pprof webserver.test pprof.cpu
 File: webserver.test
 Type: cpu
 Time: Jun 29, 2017 at 4:09pm (EDT)
@@ -210,10 +240,10 @@ powerful.
 
 Click on the `full goroutine stack dump` link to see what every goroutine is
 executing at this point. This endpoint is the one we're going to use to let
-`go tool pprof` analyze the performance of a running HTTP server.
+`pprof` analyze the performance of a running HTTP server.
 
 ```bash
-$ go tool pprof -seconds 5 http://localhost:8080/debug/pprof/profile
+$ pprof -seconds 5 http://localhost:8080/debug/pprof/profile
 Fetching profile over HTTP from http://localhost:8080/debug/pprof/profile?seconds=5
 Please wait... (5s)
 Saved profile in /Users/campoy/pprof/pprof.samples.cpu.001.pb.gz
@@ -238,7 +268,7 @@ Showing nodes accounting for 0, 0% of 0 total
 the server there was no traffic, so nothing got recorded.
 
 Let's try again, this time sending some traffic with `go-wrk` first, then starting
-`go tool pprof`.
+`pprof`.
 
 In a terminal run:
 
@@ -247,10 +277,10 @@ $ go-wrk -d 30 http://localhost:8080
 ```
 
 This will take around a minute to run, so in the meanwhile we can run
-`go tool pprof`.
+`pprof`.
 
 ```bash
-$ go tool pprof -seconds 5 http://localhost:8080/debug/pprof/profile
+$ pprof -seconds 5 http://localhost:8080/debug/pprof/profile
 Fetching profile over HTTP from http://localhost:8080/debug/pprof/profile?seconds=5
 Please wait... (5s)
 Saved profile in /Users/campoy/pprof/pprof.samples.cpu.001.pb.gz
