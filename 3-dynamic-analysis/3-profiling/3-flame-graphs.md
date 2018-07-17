@@ -2,32 +2,24 @@
 
 Flame Graphs are a different way of displaying information obtained by profiling
 software. It has the advantage that it shows code paths in a more natural way
-allowing programmers to understand how to optimize their programs eaiser.
+allowing programmers to understand how to optimize their programs easier.
 
 You can read more about them in [this page](http://www.brendangregg.com/flamegraphs.html), by the creator of the flame graph.
 
 Rather than spending a long time explaining why they're better, let's simply use
-them! In order to generate flame graphs from Go we will use
-[go-torch](https://github.com/uber/go-torch) tool developed by Uber.
-
-In order to install it, simply run:
-
-```
-$ go get github.com/uber/go-torch
-$ go get github.com/brendangregg/FlameGraph/...
-$ export PATH=$PATH:$GOPATH/src/github.com/brendangregg/FlameGraph
-```
+them! You will need the latest version of `github.com/google/pprof`.
 
 Then while running the server and some traffic into it with `go-wrk`, we can
 run the following command.
 
 ```bash
-$ go-torch -t 5
-INFO[23:10:47] Run pprof command: go tool pprof -raw -seconds 5 http://localhost:8080/debug/pprof/profile
-INFO[23:10:52] Writing svg to torch.svg
+$ pprof -http=:6060 http://localhost:8080/debug/pprof/profile
+Fetching profile over HTTP from http://localhost:8080/debug/pprof/profile
+Saved profile in /Users/francesc/pprof/pprof.samples.cpu.002.pb.gz
 ```
 
-Now, let's see what we have in that `torch.svg` file! It's an interactive SVG graph,
+A new browser will appear showing the pprof web output, click on `VIEW` and
+select `Flame Graph`. It's an interactive SVG graph,
 we can click around and navigate to better understand what took the longest for
 each function.
 
@@ -47,12 +39,10 @@ the result of running a benchmark with `-cpuprofile`. It's also very simple,
 simply run:
 
 ```bash
-$ go-torch --binaryname binary.test -b cpu.pb.gz
-INFO[23:10:47] Run pprof command: go tool pprof -raw binary.test cpu.pb.gz
-INFO[23:10:52] Writing svg to torch.svg
+$ pprof -http=:6060 /Users/francesc/pprof/pprof.samples.cpu.002.pb.gz
 ```
 
-Then simply open the SVG file as before.
+Then simply open the pprof web output as before.
 
 ### Exercise: putting everything together
 
