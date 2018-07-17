@@ -28,8 +28,7 @@ To go through this you will need the following:
 
 1. You have installed the [Go Programming Language](https://golang.org).
 1. We will be using [Visual Studio Code](https://code.visualstudio.com/) it's free and open source.
-1. At some point we'll also use [delve](https://github.com/derekparker/delve/tree/master/Documentation/installation), so install it now if you think you won't have good WiFi later.
-1. Finally, we'll need [GraphViz](http://www.graphviz.org/download).
+1. Finally, we'll also use [delve](https://github.com/derekparker/delve/tree/master/Documentation/installation), so install it now if you think you won't have good WiFi later.
 
 The rest of the software we'll use is quick to install through `go get`, so
 do not worry yet.
