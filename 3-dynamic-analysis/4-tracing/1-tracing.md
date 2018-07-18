@@ -152,6 +152,11 @@ synchronizes with others via the channels.
 ## Exercise: an mysterious trace
 
 Analyze this mysterious trace given on [mistery.trace](mistery.trace).
+
+```bash
+$ go tool trace mistery.trace
+```
+
 What do you think it does? How many goroutines are there?
 
 Can you see any garbage collection going on?
