@@ -30,7 +30,7 @@ func main() {
 	go player(table, "pong")
 
 	table <- 0
-	time.Sleep(time.Second)
+	time.Sleep(5 * time.Second)
 	ball := <-table
 	close(table)
 	log.Printf("played %d turns", ball)
