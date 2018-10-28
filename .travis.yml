@@ -1,8 +1,8 @@
 language: go
 
 go:
-  - go1.8
-  - go1.9
+  - 1.10.x
+  - 1.11.x
   - tip
 
 install:
