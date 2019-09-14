@@ -228,7 +228,7 @@ do not receive any parameters, nor return any values.
 The name of an example contains the information of what the example is demoing. In order to write an example for:
 
 - a function `Foo`, write `ExampleFoo`,
-- a method `Foo` on type `Bar`, write `ExampleFooBar`,
+- a method `Foo` on type `Bar`, write `ExampleBarFoo`,
 - a type `Foo`, write `ExampleFoo`
 
 During tests we can verify the results by writing code, in examples
